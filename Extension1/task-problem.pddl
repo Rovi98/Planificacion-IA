@@ -6,6 +6,10 @@
         (= (habilidadProgramador p2) 2)
         (= (habilidadProgramador p3) 3)
         
+        (= (calidadProgramador p1) 1)
+        (= (calidadProgramador p2) 2)
+        (= (calidadProgramador p3) 1)
+        
         (= (dificultadTarea t1) 1)
         (= (dificultadTarea t2) 2)
         (= (dificultadTarea t3) 3)
@@ -13,4 +17,4 @@
 
     
 
-    (:goal (forall (?t - tarea) (tareaAsignada ?t))))
+    (:goal (forall (?t - tarea) (tareaRevisada ?t))))

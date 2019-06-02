@@ -4,10 +4,10 @@
     (:init
         (= (habilidadProgramador p1) 1)
         (= (habilidadProgramador p2) 2)
-        (= (habilidadProgramador p3) 3)
+        (= (habilidadProgramador p3) 1)
         
-        (= (dificultadTarea t1) 1)
-        (= (dificultadTarea t2) 2)
+        (= (dificultadTarea t1) 3)
+        (= (dificultadTarea t2) 3)
         (= (dificultadTarea t3) 3)
     )
 

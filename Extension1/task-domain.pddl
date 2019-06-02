@@ -3,9 +3,9 @@
     (:types programador tarea - object)
     
     (:functions
-        (habilidadProgramador ?p - programador)           ;; Cuantos contenidos tiene asignado un dia.
-        (dificultadTarea ?t - tarea)               ;; le damos un valor a cada dia, para ver cuál va antes.
-        (calidadProgramador ?p - programador))               ;; le damos un valor a cada dia, para ver cuál va antes.
+        (habilidadProgramador ?p - programador)
+        (dificultadTarea ?t - tarea)
+        (calidadProgramador ?p - programador))
     
     (:predicates
         (asignacionTarea ?x - programador ?y - tarea)

@@ -7,6 +7,7 @@
         (dificultadTarea ?t - tarea)
         (tiempoTarea ?t - tarea)
         (calidadProgramador ?p - programador)
+        (nTareasProgramador ?p - programador)
         (tiempoTotal))
     
     (:predicates
@@ -22,7 +23,8 @@
 						   (= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)))
         :effect (and (asignacionTarea ?p ?t)
 					 (tareaAsignada ?t)
-					 (increase (tiempoTotal) (+ (tiempoTarea ?t) 2))))
+					 (increase (tiempoTotal) (+ (tiempoTarea ?t) 2))
+					 (increase (nTareasProgramador ?p) 1)))
 
 
     (:action asignar
@@ -31,7 +33,8 @@
 						   (>= (habilidadProgramador ?p) (dificultadTarea ?t)))
         :effect (and (asignacionTarea ?p ?t)
 					 (tareaAsignada ?t)
-					 (increase (tiempoTotal) (tiempoTarea ?t))))
+					 (increase (tiempoTotal) (tiempoTarea ?t))
+					 (increase (nTareasProgramador ?p) 1)))
 					
         
     (:action revisar
@@ -43,5 +46,6 @@
 						   (asignacionTarea ?p2 ?t))
         :effect (and (asignacionRevision ?p1 ?t)
 					 (tareaRevisada ?t)
-					 (increase (tiempoTotal) (calidadProgramador ?p2))))
+					 (increase (tiempoTotal) (calidadProgramador ?p2))
+					 (increase (nTareasProgramador ?p1) 1)))
 )

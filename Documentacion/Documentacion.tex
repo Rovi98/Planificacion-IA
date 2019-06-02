@@ -8,6 +8,8 @@
 
 \author{Carlos Bergillos, Adrià Cabeza, Roger Vilaseca}
 
+\setcounter{tocdepth}{2}
+
 \begin{document}
 
 \maketitle
@@ -22,13 +24,56 @@
 \section{Introducción}
 
 \section{Descripción del problema}
+En esta práctica nos encargaremos de planificar un proyecto de programación de gran envergadura.
+Deberemos repartir un conjunto de tareas a realizar entre los programadores disponibles.
+
+En concreto, disponemos de $T$ tareas de programación, cada una de ellas tiene un grado de dificultad asignado (de 1 a 3), y una tiempo estimado de realización estimado (en horas).
+
+También disponemos de un conjunto $P$ de programadores. Cada uno de ellos tiene asignado un grado de habilidad (de 1 a 3), que nos indica lo mucho o poco que esta capacitado para resolver las tareas.
+
+No queremos asignar a los programadores tareas mucho más dificiles de lo que para ellos estan capacitados. En concreto, a un programador solo le podremos asignar tareas de como mucho una unidad más de dificultad de lo que nos indique su habilidad. En caso de que sea necesario asignar a un programador una tarea más dificil que su capacidad, la duración de la realización de la tarea se verá incrementada en 2 horas.
+
+Además, todas las tareas deberán ser revisadas, para ello, hará falta una nueva tarea adicional. Esta nueva tarea de revisión será de la misma dificultad que la tarea original.
+Los programadores tienen tambien asociada una calidad (de 1 a 2). Si la tarea original es realizada por un programador de calidad 1, la nueva tarea de revisión durará 1 hora, si en cambio el programador era de calidad 2, la nueva tarea de revisión durará 2 horas. 
+cada programador también tiene asociada una calidad (de 1 a 2)
+Para evitar una recursividad infinita, las nuevas tareas de revisión no requerirán a su vez de revisión, y su tiempo de realización no se verá penalizado por la habilidad del programador que la realiza.
 
 
 \section{Nivel básico}
+En esta primera versión....
+
 
 \subsection{Dominio}
+\subsubsection{Variables}
+Para la correcta resolución de este problema de planificación hemos visto conveniente trabajar con variables con tipo.
+En concreto, hemos necesitado 2 tipos, los cuáles hemos llamado \textbf{programador} y \textbf{tarea}.
 
-\subsection{Operadores}
+\begin{itemize}
+  \item \textbf{programador:} Se utilizará para las variables que correspondan a cada programador del conjunto $P$.
+  \item \textbf{tarea:} Se utilizará para las variables que correspondan a cada tarea del conjunto $T$.
+\end{itemize}
+
+Para las próximas extensiones ya no se requieren más cambios en las variables, esta será la configuración definitiva.
+
+\subsubsection{Funciones}
+\begin{itemize}
+  \item \textbf{habilidadProgramador:}
+  \item \textbf{dificultadTarea:}
+\end{itemize}
+\subsubsection{Predicados}
+\begin{itemize}
+  \item \textbf{asignacion:}
+  \item \textbf{tareaAsignada:}
+\end{itemize}
+\subsubsection{Acciones}
+\begin{itemize}
+  \item \textbf{asignar:}
+\end{itemize}
+
+\subsection{Problema}
+\subsubsection{Objetos}
+\subsubsection{Estado inicial}
+\subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
 
@@ -36,8 +81,14 @@
 \section{Extensión 1}
 
 \subsection{Dominio}
+\subsubsection{Funciones}
+\subsubsection{Predicados}
+\subsubsection{Acciones}
 
-\subsection{Operadores}
+\subsection{Problema}
+\subsubsection{Objetos}
+\subsubsection{Estado inicial}
+\subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
 
@@ -45,8 +96,14 @@
 \section{Extensión 2}
 
 \subsection{Dominio}
+\subsubsection{Funciones}
+\subsubsection{Predicados}
+\subsubsection{Acciones}
 
-\subsection{Operadores}
+\subsection{Problema}
+\subsubsection{Objetos}
+\subsubsection{Estado inicial}
+\subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
 
@@ -54,8 +111,14 @@
 \section{Extensión 3}
 
 \subsection{Dominio}
+\subsubsection{Funciones}
+\subsubsection{Predicados}
+\subsubsection{Acciones}
 
-\subsection{Operadores}
+\subsection{Problema}
+\subsubsection{Objetos}
+\subsubsection{Estado inicial}
+\subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
 
@@ -63,8 +126,14 @@
 \section{Extensión 4}
 
 \subsection{Dominio}
+\subsubsection{Funciones}
+\subsubsection{Predicados}
+\subsubsection{Acciones}
 
-\subsection{Operadores}
+\subsection{Problema}
+\subsubsection{Objetos}
+\subsubsection{Estado inicial}
+\subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
 

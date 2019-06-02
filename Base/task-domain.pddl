@@ -3,8 +3,8 @@
     (:types programador tarea - object)
     
     (:functions
-        (habilidadProgramador ?p - programador)           ;; Cuantos contenidos tiene asignado un dia.
-        (dificultadTarea ?t - tarea))               ;; le damos un valor a cada dia, para ver cuál va antes.
+        (habilidadProgramador ?p - programador)
+        (dificultadTarea ?t - tarea))
     
     (:predicates
         (asignacion ?x - programador ?y - tarea)

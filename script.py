@@ -27,7 +27,8 @@ tiempo_tarea = [1,2,3,4,5,6]
 
 for j in range(N):
     a+="\t(=  (habilidadProgramador "+"p"+str(j)+") "+str(random.choice(dificultad_habilidad)) +")\n"
-    a+="\t(=  (calidadProgramador "+"p"+str(j)+") "+str(random.choice(calidad)) + ")\n"
+    if args.extension > 0:
+        a+="\t(=  (calidadProgramador "+"p"+str(j)+") "+str(random.choice(calidad)) + ")\n"
     if args.extension > 2:
         a+="\t(=  (nTareasProgramador "+"p"+str(j)+") 0)\n"
     a+= "\n"
@@ -38,30 +39,30 @@ for j in range(N):
 print('Programadores escritos')    
 # TAREAS 
 for j in range(M):
-    a+="\t(=  (dificultatTarea " + "t"+str(j)+")"+str(random.choice(dificultad_habilidad))+ ")\n"
+    a+="\t(=  (dificultadTarea " + "t"+str(j)+")"+str(random.choice(dificultad_habilidad))+ ")\n"
     if args.extension  > 1:
         a+="\t(=  (tiempoTarea " + "t"+str(j)+")"+str(random.choice(tiempo_tarea))+")\n\n"
 if args.extension > 1:
-    a+= "(= (tiempoTotal) 0 )"
+    a+= "\t(= (tiempoTotal) 0 )\n"
 if args.extension is 4:
-    a += "(= (programadoresTotal) 0)"
+    a += "\t(= (programadoresTotal) 0)\n"
 
-a += ")"
+a += ")\n"
  
 
 
 print('Tareas escritas')
 # GOALS 
 if args.extension is 0 :
-    a += "(:goal (forall (?t - tarea) (tareaRevisada ?t)))"
+    a += "(:goal (forall (?t - tarea) (tareaAsignada ?t)))\n"
 elif args.extension is 1:
-    a += "(:goal (forall (?t - tarea) (tareaRevisada ?t)))\n (:metric minimize (tiempoTotal))\n"
+    a += "(:goal (forall (?t - tarea) (tareaRevisada ?t)))\n"
 elif args.extension is 2:
-    a += "(:goal (forall (?t - tarea) (tareaRevisada ?t)))\n (forall (?p - programador) (<= (nTareasProgramador ?p) 2)))) \n (:metric minimize (tiempoTotal))\n"
+    a += "(:goal (forall (?t - tarea) (tareaRevisada ?t)))\n (:metric minimize (tiempoTotal))\n"
 elif args.extension is 3:
-    a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t)) (forall (?p - programador) (<= (nTareasProgramador ?p) 2)))) (:metric minimize (tiempoTotal)) "
+    a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t))\n (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))\n (:metric minimize (tiempoTotal))\n "
 else: 
-    a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t)) (forall (?p - programador) (<= (nTareasProgramador ?p) 2)))) (:metric minimize (+ (tiempoTotal) (programadoresTotal)))"
+    a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t))\n (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))\n (:metric minimize (+ (tiempoTotal) (programadoresTotal)))\n"
 a+= ")"
 
     

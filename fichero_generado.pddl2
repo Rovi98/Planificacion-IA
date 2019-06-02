@@ -1,0 +1,98 @@
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 - programador
+t0 t1 t2 t3 t4 t5 t6 t7 t8 t9 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 2)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 2)
+
+	(=  (habilidadProgramador p2) 2)
+	(=  (calidadProgramador p2) 1)
+
+	(=  (habilidadProgramador p3) 1)
+	(=  (calidadProgramador p3) 1)
+
+	(=  (habilidadProgramador p4) 2)
+	(=  (calidadProgramador p4) 1)
+
+	(=  (habilidadProgramador p5) 1)
+	(=  (calidadProgramador p5) 2)
+
+	(=  (habilidadProgramador p6) 3)
+	(=  (calidadProgramador p6) 2)
+
+	(=  (habilidadProgramador p7) 2)
+	(=  (calidadProgramador p7) 2)
+
+	(=  (habilidadProgramador p8) 1)
+	(=  (calidadProgramador p8) 1)
+
+	(=  (habilidadProgramador p9) 1)
+	(=  (calidadProgramador p9) 1)
+
+	(=  (habilidadProgramador p10) 2)
+	(=  (calidadProgramador p10) 2)
+
+	(=  (habilidadProgramador p11) 2)
+	(=  (calidadProgramador p11) 2)
+
+	(=  (habilidadProgramador p12) 2)
+	(=  (calidadProgramador p12) 1)
+
+	(=  (habilidadProgramador p13) 1)
+	(=  (calidadProgramador p13) 1)
+
+	(=  (habilidadProgramador p14) 1)
+	(=  (calidadProgramador p14) 2)
+
+	(=  (habilidadProgramador p15) 1)
+	(=  (calidadProgramador p15) 2)
+
+	(=  (habilidadProgramador p16) 3)
+	(=  (calidadProgramador p16) 1)
+
+	(=  (habilidadProgramador p17) 2)
+	(=  (calidadProgramador p17) 2)
+
+	(=  (habilidadProgramador p18) 1)
+	(=  (calidadProgramador p18) 1)
+
+	(=  (habilidadProgramador p19) 1)
+	(=  (calidadProgramador p19) 1)
+
+	(=  (dificultatTarea t0)1)
+	(=  (tiempoTarea t0)3)
+
+	(=  (dificultatTarea t1)3)
+	(=  (tiempoTarea t1)3)
+
+	(=  (dificultatTarea t2)1)
+	(=  (tiempoTarea t2)6)
+
+	(=  (dificultatTarea t3)2)
+	(=  (tiempoTarea t3)6)
+
+	(=  (dificultatTarea t4)3)
+	(=  (tiempoTarea t4)6)
+
+	(=  (dificultatTarea t5)1)
+	(=  (tiempoTarea t5)6)
+
+	(=  (dificultatTarea t6)2)
+	(=  (tiempoTarea t6)4)
+
+	(=  (dificultatTarea t7)2)
+	(=  (tiempoTarea t7)1)
+
+	(=  (dificultatTarea t8)1)
+	(=  (tiempoTarea t8)3)
+
+	(=  (dificultatTarea t9)3)
+	(=  (tiempoTarea t9)1)
+
+(= (tiempoTotal) 0 ))(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (forall (?p - programador) (<= (nTareasProgramador ?p) 2)))) 
+ (:metric minimize (tiempoTotal))
+)

@@ -202,8 +202,6 @@ El estado final remplazaremos la comprobación de de que todas las tareas estén
 \end{verbatim}
 \subsection{Juegos de prueba}
 
-
-
 \section{Extensión 2}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
 \\
@@ -287,50 +285,34 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 
 \subsection{Juegos de prueba}
 \subsubsection{Prueba que minimice según la habilidad del programador} 
-\underline{\textbf{Input}}
+\underline{\textbf{Input}}\\
+
+En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizar el tiempo con las asignaciones realizadas según la habilidad del programador. 
 \begin{verbatim}
-(define (problem test-01) (:domain task) 
-	(:objects p0 p1 p2 - programador
-t0 t1 - tarea)
-	(:init
-	(=  (habilidadProgramador p0) 1)
-	(=  (calidadProgramador p0) 1)
 
-	(=  (habilidadProgramador p1) 1)
-	(=  (calidadProgramador p1) 1)
-
-	(=  (habilidadProgramador p2) 3)
-	(=  (calidadProgramador p2) 1)
-
-	(=  (dificultadTarea t0)2)
-	(=  (tiempoTarea t0)6)
-
-	(=  (dificultadTarea t1)1)
-	(=  (tiempoTarea t1)1)
-
-	(= (tiempoTotal) 0 )
-)
-(:goal (forall (?t - tarea) (tareaRevisada ?t)))
- (:metric minimize (tiempoTotal))
-)
 \end{verbatim}
 
-\noindent \underline{\textbf{Output}}
+\noindent \underline{\textbf{Output}}\\
+
 \begin{verbatim}
-ff: found legal plan as follows
-step    0: ASIGNARDIFICIL P1 T0
-        1: REVISAR P2 P1 T0
-        2: ASIGNAR P0 T1
-        3: REVISAR P2 P0 T1
-plan cost: 11.000000
+
 \end{verbatim}
-\noindent \underline{{\textbf{Justificación}}}
+\noindent \underline{{\textbf{Justificación}}}\\
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la habilidad del programador. 
 
 \subsubsection{Prueba que optimize según la calidad del programador} 
-\textbf{Input}
-\noindent \underline{\textbf{Output}}
-\noindent \underline{\textbf{Justificación}}
+\underline{\textbf{Input}}\\
+En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizarel tiempo con las asignaciones realizadas según la calidad del programador. 
+\medskip
 
+\noindent \underline{\textbf{Output}}\\
+
+
+\medskip
+
+
+\noindent \underline{\textbf{Justificación}}\\
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la calidad del programador. 
 
 \section{Extensión 3}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
@@ -370,8 +352,8 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 \end{verbatim}
 \subsection{Juegos de prueba}
 \subsubsection{Prueba estándard}
-\underline{\textbf{Input}}
-\medskip
+\underline{\textbf{Input}}\\
+
 En este caso introduciremos un juego de prueba estándard sin ninguna complicación para comprovar que se realiza correctamente el objetivo de la extensión. 
 \begin{verbatim}
 (define (problem test-01) (:domain task) 
@@ -403,6 +385,8 @@ t0 t1 - tarea)
  (:metric minimize (tiempoTotal))
  )
  \end{verbatim}
+ \medskip
+
  \noindent \underline{\textbf{Output}}
 \medskip
 \begin{verbatim}
@@ -414,11 +398,15 @@ step    0: ASIGNAR P0 T1
 plan cost: 14.000000
 
 \end{verbatim}
-\noindent \underline{\textbf{Justifación}}
+\medskip
+
+\noindent \underline{\textbf{Justifación}}\\
+
 En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
 
 \subsubsection{Prueba imposible de realizar}
-\noindent \underline{\textbf{Input}}
+\noindent \underline{\textbf{Input}} \\
+
 En este caso hemos creado un juego de prueba que resulte imposible de realizar ya que cada persona tendría que realizar más de 2 tareas. 
 \medskip
 \begin{verbatim}
@@ -463,12 +451,13 @@ t0 t1 t2 t3 t4 - tarea)
 \end{verbatim}
 
 \noindent \underline{\textbf{Output}}
-\medskip
+
 \begin{verbatim}
 Astar epsilon search space empty!
 Bailing out.
 \end{verbatim}
 \noindent \underline{\textbf{Justificación}}
+
 Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
 \medskip
 

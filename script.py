@@ -27,7 +27,7 @@ tiempo_tarea = [1,2,3,4,5,6]
 
 for j in range(N):
     a+="\t(=  (habilidadProgramador "+"p"+str(j)+") "+str(random.choice(dificultad_habilidad)) +")\n"
-    if args.extension > 0:
+    if args.extension > 1:
         a+="\t(=  (calidadProgramador "+"p"+str(j)+") "+str(random.choice(calidad)) + ")\n"
     if args.extension > 2:
         a+="\t(=  (nTareasProgramador "+"p"+str(j)+") 0)\n"

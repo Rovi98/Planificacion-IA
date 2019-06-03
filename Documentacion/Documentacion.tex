@@ -41,6 +41,8 @@ Dada un modelizacion del dominio y una modelizacion del problema, el planificado
 
 Además, para ciertas extensiones de la práctica, no solo nos interesará buscar un plan válido cualquiera, sino que nos interesará encontrar un plan que optimice un criterio dado (una métrica).
 
+\newpage
+
 \section{Descripción del problema}
 En esta práctica nos encargaremos de planificar un proyecto de programación de gran envergadura.
 Deberemos repartir un conjunto de tareas a realizar entre los programadores disponibles.
@@ -55,6 +57,7 @@ Además, todas las tareas deberán ser revisadas, para ello, hará falta una nue
 Los programadores tienen también asociada una calidad (de 1 a 2). Si la tarea original es realizada por un programador de calidad 1, la nueva tarea de revisión durará 1 hora, si en cambio el programador era de calidad 2, la nueva tarea de revisión durará 2 horas. 
 Para evitar una recursividad infinita, las nuevas tareas de revisión no requerirán a su vez de revisión, y su tiempo de realización no se verá penalizado por la habilidad del programador que la realiza.
 
+\newpage
 
 \section{Nivel básico} \label{basic}
 En esta primera versión del problema, solamente tendremos como objetivo que todas las tareas queden asignadas a algún programador, sin tener en cuenta las tareas de revisión asociadas, y sin intentar optimizar ningún criterio.
@@ -134,7 +137,75 @@ Para el estado final, requerimos que todas las tareas estén asignadas:
 
 \subsection{Juegos de prueba}
 
+\subsubsection{Prueba estandard}
+\underline{\textbf{Input}}\\
 
+En este caso introduciremos un juego de prueba con algun programador que pueda realizar las tareas.
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 p3 - programador
+			  t1 t2 t3 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 1)
+        (= (habilidadProgramador p2) 2)
+        (= (habilidadProgramador p3) 1)
+        
+        (= (dificultadTarea t1) 3)
+        (= (dificultadTarea t2) 3)
+        (= (dificultadTarea t3) 3)
+    )
+
+    (:goal (forall (?t - tarea) (tareaAsignada ?t))))
+ \end{verbatim}
+ \medskip
+ 
+ \noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P2 T3
+        1: ASIGNAR P2 T2
+        2: ASIGNAR P2 T1
+\end{verbatim}
+\medskip
+
+\noindent \underline{\textbf{Justifación}}\\
+
+Como esperavamos se han asignado todas las tareas al programador 2 por que su habilidad le permite realizar las tareas de dificultad 3
+
+\subsubsection{Prueba imposible de realizar}
+\noindent \underline{\textbf{Input}} \\
+
+En este caso todos los programadores tendran habilidad 1 i todas la tareas dificultad 3. Esto debería probocar que todos ningún prgogramador pueda tener tareas asignadas.
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 p3 - programador
+			  t1 t2 t3 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 1)
+        (= (habilidadProgramador p2) 1)
+        (= (habilidadProgramador p3) 1)
+        
+        (= (dificultadTarea t1) 3)
+        (= (dificultadTarea t2) 3)
+        (= (dificultadTarea t3) 3)
+    )
+
+    (:goal (forall (?t - tarea) (tareaAsignada ?t))))
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+best first search space empty! problem proven unsolvable.
+\end{verbatim}
+\noindent \underline{\textbf{Justificación}} \\
+
+Cómo esperavamos no hemos encontrado ninguna solución porque los programadores no tienen suficiente habilidad para poder realizar las tareas..
+\medskip
+
+\newpage
 \section{Extensión 1}
 
 En esta extensión, vamos a añadir a nuestro programa la revisión de tareas.
@@ -302,6 +373,8 @@ weighted A* search space empty! problem proven unsolvable.
 
 Cómo esperavamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
 \medskip
+
+\newpage
 
 \section{Extensión 2}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
@@ -490,6 +563,8 @@ plan cost: 10.000000
 
 En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la calidad del programador: se le han asignado todas las tareas de realización al programador 0 ya que este tiene de calidad 1 y eso significa menos tiempo de revisión hacia sus otros compañeros. 
 
+\newpage
+
 \section{Extensión 3}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
 \subsection{Dominio}
@@ -639,6 +714,8 @@ Bailing out.
 
 Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
 \medskip
+
+\newpage
 
 \section{Extensión 4}
 
@@ -850,6 +927,8 @@ plan cost: 10.000000
 
 Cómo esperavamos los programadores con calidad 2 no han sido asignados. Creando así la mayor minimización posible.
 \medskip
+
+\newpage
 
 \section{Conclusiones}
 

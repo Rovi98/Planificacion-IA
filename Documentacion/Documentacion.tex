@@ -213,7 +213,7 @@ En este caso, minimizar significa otorgar las tareas dependiendo de la habilidad
 
 Puesto a que esta es la primera extensión donde observamos el concepto de tiempo, hemos tenido que añadir funciones además de las mencionadas anteriormente. 
 \begin{itemize}
-\item \textbf{tiempoTarea}: Esta función nos servirá para definir y conocer el tiempo asociado a una tarea \texit{T}.
+\item \textbf{tiempoTarea}: Esta función nos servirá para definir y conocer el tiempo asociado a una tarea \textit{T}.
 \item \textbf{tiempoTotal}: Esta función nos servirá para definir y conocer la suma de duración de todas las tareas. Es decir el tiempo total que representa el conjunto de tareas. 
 
 \end{itemize}
@@ -286,7 +286,44 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 \end{verbatim}
 
 \subsection{Juegos de prueba}
+\subsubsection{} 
+{\Large \textbf{Input}}
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 1)
 
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 1)
+
+	(=  (habilidadProgramador p2) 3)
+	(=  (calidadProgramador p2) 1)
+
+	(=  (dificultadTarea t0)2)
+	(=  (tiempoTarea t0)6)
+
+	(=  (dificultadTarea t1)1)
+	(=  (tiempoTarea t1)1)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (:metric minimize (tiempoTotal))
+)
+\end{verbatim}
+\noindent { \Large \textbf{Output}}
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNARDIFICIL P1 T0
+        1: REVISAR P2 P1 T0
+        2: ASIGNAR P0 T1
+        3: REVISAR P2 P0 T1
+plan cost: 11.000000
+\end{verbatim}
+\noindent {\Large \textbf{Justificación}}
 
 \section{Extensión 3}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
@@ -313,7 +350,7 @@ Para cada programador:
   	\item Definimos la dificultad de la tarea (1, 2 o 3).
 \end{itemize}
 
-\noindent Además inicializamos los valores de \textit{tiempoTotal} y el número de tareas de cada programador. 
+\noindent Además inicializamos los valores de \textit{tiempoTotal} y el número de tareas de cada programador, \textit{nTareasProgramador}. 
 
 \subsubsection{Estado final}
 Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas y además que se minimice el tiempo total. Además, añadimos también la restricción de que cada programador solo puede realizar como máximo 2 tareas. 
@@ -325,7 +362,108 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 (:metric minimize (tiempoTotal))
 \end{verbatim}
 \subsection{Juegos de prueba}
+\subsubsection{Juego de prueba estándard}
+{\Large \textbf{Input}}
+\medskip
+En este caso introduciremos un juego de prueba estándard sin ninguna complicación para comprovar que se realiza correctamente el objetivo de la extensión. 
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 3)
+	(=  (calidadProgramador p0) 2)
+	(=  (nTareasProgramador p0) 0)
 
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 2)
+	(=  (nTareasProgramador p1) 0)
+
+	(=  (habilidadProgramador p2) 3)
+	(=  (calidadProgramador p2) 2)
+	(=  (nTareasProgramador p2) 0)
+
+	(=  (dificultadTarea t0)1)
+	(=  (tiempoTarea t0)4)
+
+	(=  (dificultadTarea t1)3)
+	(=  (tiempoTarea t1)6)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+ (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+ (:metric minimize (tiempoTotal))
+ )
+ \end{verbatim}
+ \noindent {\Large \textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P0 T1
+        1: REVISAR P2 P0 T1
+        2: ASIGNAR P1 T0
+        3: REVISAR P2 P1 T0
+plan cost: 14.000000
+
+\end{verbatim}
+\noindent {\Large \textbf{Justifación}}
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
+
+\subsubsection{Juego de prueba imposible de realizar}
+\noindent {\Large \textbf{Input}}
+En este caso hemos creado un juego de prueba que resulte imposible de realizar ya que cada persona tendría que realizar más de 2 tareas. 
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 t2 t3 t4 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 2)
+	(=  (calidadProgramador p0) 1)
+	(=  (nTareasProgramador p0) 0)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 1)
+	(=  (nTareasProgramador p1) 0)
+
+	(=  (habilidadProgramador p2) 1)
+	(=  (calidadProgramador p2) 2)
+	(=  (nTareasProgramador p2) 0)
+
+	(=  (dificultadTarea t0)2)
+	(=  (tiempoTarea t0)1)
+
+	(=  (dificultadTarea t1)1)
+	(=  (tiempoTarea t1)4)
+
+	(=  (dificultadTarea t2)1)
+	(=  (tiempoTarea t2)1)
+
+	(=  (dificultadTarea t3)3)
+	(=  (tiempoTarea t3)5)
+
+	(=  (dificultadTarea t4)1)
+	(=  (tiempoTarea t4)6)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+ (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+ (:metric minimize (tiempoTotal))
+ )
+
+\end{verbatim}
+
+\noindent {\Large \textbf{Output}}
+\medskip
+\begin{verbatim}
+Astar epsilon search space empty!
+Bailing out.
+\end{verbatim}
+\noindent {\Large \textbf{Justificación}}
+Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
+\medskip
 
 \section{Extensión 4}
 

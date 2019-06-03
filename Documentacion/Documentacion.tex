@@ -1,14 +1,15 @@
 \title{}
 \date{\today}
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{appendix}
 \date{Junio 3, 2019}
+\usepackage[margin=1.4in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\renewcommand\appendixname{Anexo}
+\renewcommand{\appendixname}{Anexo}
 \renewcommand{\contentsname}{Índice}
-\renewcommand\appendixpagename{Anexos}
+\renewcommand{\appendixpagename}{Anexos}
 \author{Carlos Bergillos, Adrià Cabeza, Roger Vilaseca}
 \title{Asignación de tareas a programadores usando PDDL  \\ \large IA FIB @ UPC}
 \setcounter{tocdepth}{3}
@@ -174,18 +175,18 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
   	\item La habilidad del programador debe ser más grande o igual que la dificultad de la tarea más uno.
   	\item El programador que revisa la tarea no puede ser el mismo que el que le ha sido asignada.
   \end{itemize}
-  
-  (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
-  
+%\begin{verbatim}
+ % (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
+ % \end{verbatim}
   \textbf{Postcondición}
   
   \begin{itemize}
   	\item Un programador será el revisor de la tarea.
   	\item La tarea estará revisada.
   \end{itemize}
-  
-  (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
-  
+%\begin{verbatim}
+ % (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
+ % \end{verbatim}
 \end{itemize}
 
 \subsection{Problema}
@@ -196,9 +197,9 @@ En este caso el estado inicial será equivalente al de la sección \ref{basic_es
 \subsubsection{Estado final}
 
 El estado final remplazaremos la comprobación de de que todas las tareas estén asignadas, por la comprobación de que todas las tareas estén revisadas.
-
+\begin{verbatim}
 (forall (?t - tarea) (tareaRevisada ?t))
-
+\end{verbatim}
 \subsection{Juegos de prueba}
 
 
@@ -219,9 +220,47 @@ Puesto a que esta es la primera extensión donde observamos el concepto de tiemp
 \subsubsection{Predicados}
 En cuanto a lo que concierne a los predicados, utilizamos los mismos que en la extensión anterior.
 \subsubsection{Acciones}
+Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{asignarDificil} y modificar \textbf{asignar} y \textbf{revisar} para añadir los conceptos de tiempo en nuestro sistema.
 \begin{itemize}
-	\item \textbf{asignarDificil}
-	\item \textbf{asignar}
+	\item \textbf{asignar}: Esta acción nos sirve para asignar una tarea a un programador que tiene un valor de habilidad = dificultadTarea -1. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+		\item ?t - tarea
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item La tarea t no está asignada
+		\item La habilidad del programador p es igual que la dificultad de la tarea p menos uno. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item La tarea t ha sido asignada al programador p.
+		\item Se ha incrementado el tiempo total el tiempo que tarda en realizarse la tarea con una penalización de 2 horas denido a su habilidad.
+	\end{itemize}
+
+	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad mayor o igual a la dificultad de la tarea. En este caso se incrementa el Tiempo total con el tiempo de la tarea sin penalización alguna.
+
+	\item \textbf{revisar}: Esta acción nos sirve para asignar una tarea de revisión a un programador. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+		\item ?t - tarea
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item La tarea t no está asignada
+		\item La tarea no debe estar revisada
+		\item La habilidad del programador p debe ser más grande o igual que la dificultad de la tarea p más uno.
+		\item El programador que revisa la tarea no puede ser el mismo que el que la ha realizado. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item Se ha asignado a un programador la tarea de revisión.
+		\item La tarea está revisada. 
+		\item Se ha incrementado el tiempo total el tiempo que tarda en revisarse la tarea, el cual depende de la calidad del programador.
+	\end{itemize}
+	
 \end{itemize}
 
 \subsection{Problema}
@@ -234,7 +273,10 @@ Además inicializamos el valor de \textit{tiempoTotal}.
 
 \subsubsection{Estado final}
 Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas. No obstante, en este caso añadimos una métrica: \textbf{minimizar el valor de tiempoTotal}.
-
+\begin{verbatim}
+(:goal (forall (?t - tarea) (tareaRevisada ? t))) 
+(:metric minimize (tiempoTotal))
+\end{verbatim}
 
 \subsection{Juegos de prueba}
 

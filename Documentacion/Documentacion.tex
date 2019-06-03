@@ -719,7 +719,7 @@ Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y
 
 \section{Extensión 4}
 
-En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores. 
+En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores.
 \subsection{Dominio}
 \subsubsection{Funciones}
 En esta extensión tenemos que conocer el número de trabajadores que tienen alguna tarea asignada por tal de poder minimizar este número. Para tener esta informacion hemos creado una función.
@@ -788,13 +788,13 @@ Para cada programador:
 
 \subsubsection{Estado final}
 En este caso cómo todas las tareas deben estar inicializadas para poder contar el número de programadores con tareas el estado final se cumplirà cuando se haya contado a todos los programadores y cuando todos los programadores realizen menos de 2 tareas.
-En esta ocasion minimizaremos el tiempo total y el número de programadores.
+En esta ocasion minimizaremos el tiempo total y el número de programadores. Haciendo pruebas hemos encontrado que una onderación igual nos da buenos resultados, debido a que ambos contadores son parecidos.
 
 \begin{verbatim}
 (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
 					(programadorContado ?p))))
     
-(:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+(:metric minimize (+ (* (tiempoTotal) 0.5) (* (programadoresTotal) 0.5)))
 \end{verbatim}
 \subsection{Juegos de prueba}
 \subsubsection{Prueba minimzar programador}
@@ -838,7 +838,7 @@ En este caso introduciremos un juego en que todos los programadores tienen la mi
     (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
 											(programadorContado ?p))))
     
-    (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+    (:metric minimize (+ (* (tiempoTotal) 0.5) (* (programadoresTotal) 0.5)))
     )
  \end{verbatim}
  \medskip
@@ -905,7 +905,7 @@ Finalmente haremos una prueba con programadores con habilidad 3 y calidad 1 y pr
     (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
 											(programadorContado ?p))))
     
-    (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+    (:metric minimize (+ (* (tiempoTotal) 0.5) (* (programadoresTotal) 0.5)))
     )
 \end{verbatim}
 

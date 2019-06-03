@@ -104,10 +104,19 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
 
 \subsection{Problema}
 \subsubsection{Objetos}
-Para la modelización del problema tenemos que definir las tareas y programadores de los que disponemos, declarando tantas variables (objetos) como requiramos.
+Para la modelización del problema tenemos que definir el conjunto de tareas y el conjunto de programadores de los que disponemos, declarando tantas variables (objetos) como requiramos.
 
 \subsubsection{Estado inicial} \label{basic_estadoinicial}
-En el estado inicial, para cada tarea y programador de los que disponemos, especificaremos su información asociada, como la habilidad de cada programador, o la dificultad de las tareas.
+Para cada tarea:
+\begin{itemize}
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent
+Y para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+\end{itemize}
 
 \subsubsection{Estado final}
 Para el estado final, requerimos que todas las tareas estén asignadas:

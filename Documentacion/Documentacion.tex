@@ -1,19 +1,25 @@
 \title{}
 \date{\today}
 \documentclass[12pt]{article}
-
+\usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{appendix}
+\date{Junio 3, 2019}
 \usepackage[hidelinks]{hyperref}
-
+\renewcommand\appendixname{Anexo}
+\renewcommand{\contentsname}{Índice}
+\renewcommand\appendixpagename{Anexos}
 \author{Carlos Bergillos, Adrià Cabeza, Roger Vilaseca}
-
+\title{Asignación de tareas a programadores usando PDDL  \\ \large IA FIB @ UPC}
 \setcounter{tocdepth}{3}
 
 \begin{document}
 
 \maketitle
-
+\vspace*{\fill}
+\begin{center}
+\includegraphics[scale=0.35]{images/UPClogo.png}
+\end{center}
 \newpage
 
 \tableofcontents
@@ -198,8 +204,11 @@ El estado final remplazaremos la comprobación de de que todas las tareas estén
 
 
 \section{Extensión 2}
-
+En la siguiente extensión, partiendo de la anterior extensión, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
+\\
+En este caso, minimizar significa otorgar las tareas dependiendo de la calidad del programador para que las tareas de revisión sean menos duraderas. 
 \subsection{Dominio}
+
 \subsubsection{Funciones}
 \subsubsection{Predicados}
 \subsubsection{Acciones}
@@ -249,5 +258,16 @@ El estado final remplazaremos la comprobación de de que todas las tareas estén
 
 \section{Generador de juegos de prueba}
 
+Generar a mano varios casos de prueba es una tarea ardua y monótona que puede ser fácilmente automatizable, así pues, para poder probar varios valores rápidamente, decidimos crear un generador de juegos de prueba. En nuestro caso hemos decidido utilizar el lenguaje de scripting \textbf{Python} para generar casos de prueba automáticamente.
+\medskip
+
+Nuestro generador de pruebas admite tres parámetros distintos:
+\begin{itemize}
+	\item \textit{--programadores P}, donde P es el número de programadores que queremos
+	\item \textit{--tareas T}, donde T es el número de programadores que queremos
+	\item \textit{--extension E} donde E es la extensión que deseamos utilizar. 
+\end{itemize}
+\medskip
+\noindent Finalmente se genera un documento llamado \textit{fichero\_generadoN.pddl} donde la N es la extensión que hemos seleccionado en los argumentos del programa. 
 
 \end{document}

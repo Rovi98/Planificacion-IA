@@ -15,7 +15,8 @@
         (asignacionTarea ?x - programador ?y - tarea)
         (asignacionRevision ?x - programador ?y - tarea)
         (tareaAsignada ?x - tarea)
-        (tareaRevisada ?x - tarea))
+        (tareaRevisada ?x - tarea)
+        (programadorContado ?x - programador))
         
         
 	(:action asignarDificil
@@ -25,8 +26,7 @@
         :effect (and (asignacionTarea ?p ?t)
 					 (tareaAsignada ?t)
 					 (increase (tiempoTotal) (+ (tiempoTarea ?t) 2))
-					 (increase (nTareasProgramador ?p) 1)
-					 (when (= (nTareasProgramador ?p) 1) (increase (programadoresTotal) 1))))
+					 (increase (nTareasProgramador ?p) 1)))
 
 
     (:action asignar
@@ -36,8 +36,7 @@
         :effect (and (asignacionTarea ?p ?t)
 					 (tareaAsignada ?t)
 					 (increase (tiempoTotal) (tiempoTarea ?t))
-					 (increase (nTareasProgramador ?p) 1)
-					 (when (= (nTareasProgramador ?p) 1) (increase (programadoresTotal) 1))))
+					 (increase (nTareasProgramador ?p) 1)))
 					
         
     (:action revisar
@@ -50,6 +49,21 @@
         :effect (and (asignacionRevision ?p1 ?t)
 					 (tareaRevisada ?t)
 					 (increase (tiempoTotal) (calidadProgramador ?p2))
-					 (increase (nTareasProgramador ?p1) 1)
-					 (when (= (nTareasProgramador ?p1) 1) (increase (programadoresTotal) 1))))
+					 (increase (nTareasProgramador ?p1) 1)))
+					 
+	(:action contar
+		:parameters (?p -programador)
+		:precondition (and (not (programadorContado ?p))
+							(forall (?t - tarea) (tareaRevisada ?t))
+							(> (nTareasProgramador ?p) 0))
+		:effect (and (programadorContado ?p)
+						(increase (programadoresTotal) 1)))
+						
+	(:action nocontar
+		:parameters (?p -programador)
+		:precondition (and (not (programadorContado ?p))
+							(forall (?t - tarea) (tareaRevisada ?t))
+							(= (nTareasProgramador ?p) 0))
+		:effect (and (programadorContado ?p)))
+							
 )

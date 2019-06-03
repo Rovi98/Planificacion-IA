@@ -140,7 +140,7 @@ Para el estado final, requerimos que todas las tareas estén asignadas:
 \subsubsection{Prueba estandard}
 \underline{\textbf{Input}}\\
 
-En este caso introduciremos un juego de prueba con algun programador que pueda realizar las tareas.
+En este caso introduciremos un juego de prueba con algún programador que pueda realizar las tareas.
 \begin{verbatim}
 (define (problem test-01) (:domain task)
     (:objects p1 p2 p3 - programador
@@ -169,14 +169,14 @@ step    0: ASIGNAR P2 T3
 \end{verbatim}
 \medskip
 
-\noindent \underline{\textbf{Justifación}}\\
+\noindent \underline{\textbf{Justificación}}\\
 
-Como esperavamos se han asignado todas las tareas al programador 2 por que su habilidad le permite realizar las tareas de dificultad 3
+Como esperábamos se han asignado todas las tareas al programador 2 por que su habilidad le permite realizar las tareas de dificultad 3
 
 \subsubsection{Prueba imposible de realizar}
 \noindent \underline{\textbf{Input}} \\
 
-En este caso todos los programadores tendran habilidad 1 i todas la tareas dificultad 3. Esto debería probocar que todos ningún prgogramador pueda tener tareas asignadas.
+En este caso todos los programadores tendrán habilidad 1 i todas la tareas dificultad 3. Esto debería provocar que todos ningún programador pueda tener tareas asignadas.
 \medskip
 \begin{verbatim}
 (define (problem test-01) (:domain task)
@@ -202,7 +202,7 @@ best first search space empty! problem proven unsolvable.
 \end{verbatim}
 \noindent \underline{\textbf{Justificación}} \\
 
-Cómo esperavamos no hemos encontrado ninguna solución porque los programadores no tienen suficiente habilidad para poder realizar las tareas..
+Cómo esperábamos no hemos encontrado ninguna solución porque los programadores no tienen suficiente habilidad para poder realizar las tareas..
 \medskip
 
 \newpage
@@ -236,7 +236,7 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
   
   \item \verb|(tareaRevisada ?x - tarea)|
   
-  Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+  Predicado para conocer si la tarea en cuestión ha sido revisada por algún programador.
   
 \end{itemize}
 
@@ -244,7 +244,7 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
 
 \begin{itemize}
   \item \textbf{asignar:}
-  Esta acción és equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
+  Esta acción es equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
   \item \textbf{revisar:} El objetivo de esta acción es a partir de las tareas ya asignadas, asignar una revisión a todas la tareas con un programador diferente del que ha tenido asignada la tarea, el cual debe tener habilidad suficientemente grande para poder revisarla.
   
   \textbf{Parámetros}
@@ -337,14 +337,14 @@ step    0: ASIGNAR P1 T4
 \end{verbatim}
 \medskip
 
-\noindent \underline{\textbf{Justifación}}\\
+\noindent \underline{\textbf{Justificación}}\\
 
 Como podemos observar todos los programadores tienen un nivel suficiente para poder realizar cualquier tarea, por este motivo se asignan todas las tareas a un programador y todas las revisiones al otro.
 
 \subsubsection{Prueba imposible de realizar}
 \noindent \underline{\textbf{Input}} \\
 
-En este caso habrá un programador con habilidad 2 y otro con habilidad 1. También habrà una tarea de dificultad 3. Cómo las tareas para revisión necesitan un programador con suficiente habilidad no se encontrarà ninguna solución porque la tarea en question no tendrà ningún programador capaz de revisarla.
+En este caso habrá un programador con habilidad 2 y otro con habilidad 1. También habrá una tarea de dificultad 3. Cómo las tareas para revisión necesitan un programador con suficiente habilidad no se encontrará ninguna solución porque la tarea en cuestión no tendrá ningún programador capaz de revisarla.
 \medskip
 \begin{verbatim}
 (define (problem test-01) (:domain task)
@@ -371,7 +371,7 @@ weighted A* search space empty! problem proven unsolvable.
 \end{verbatim}
 \noindent \underline{\textbf{Justificación}} \\
 
-Cómo esperavamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
+Cómo esperábamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
 \medskip
 
 \newpage
@@ -412,26 +412,27 @@ Además de las acciones utilizadas anteriormente hemos tenido que añadir \textb
 		\item Se ha incrementado el tiempo total en  el tiempo que tarda en realizarse la tarea.
 	\end{itemize}
 
-	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad igual a la dificultad de la tarea menos 1. En este caso se incrementa el tiempo total en el tiempo que tarda en realizarse la tarea con una penalización de 2 horas denido a su habilidad.
+	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad igual a la dificultad de la tarea menos 1. En este caso se incrementa el tiempo total en el tiempo que tarda en realizarse la tarea con una penalización de 2 horas debido a su habilidad.
 
 	\item \textbf{revisar}: Esta acción nos sirve para asignar una tarea de revisión a un programador. 
 	\textbf{Parámetros}
 	\begin{itemize}
-		\item ?p - programador
-		\item ?t - tarea
+		\item \texttt{?p1 - programador}
+		\item \texttt{?p2 - programador}
+		\item \texttt{?t - tarea}
 	\end{itemize}
 	\textbf{Precondición}
 	\begin{itemize}
-		\item La tarea t no está asignada
-		\item La tarea no debe estar revisada
-		\item La habilidad del programador p debe ser más grande o igual que la dificultad de la tarea p más uno.
-		\item El programador que revisa la tarea no puede ser el mismo que el que la ha realizado. 
+		\item La tarea \texttt{t} está asignada
+		\item La tarea \texttt{t} no está revisada
+		\item La habilidad del programador \texttt{p1} debe ser más grande o igual que la dificultad de la tarea \texttt{t} más uno.
+		\item El programador \texttt{p1} que revisa la tarea no puede ser el mismo que el que la ha realizado (\texttt{p2}). 
 	\end{itemize}
 	\textbf{Postcondición}
 	\begin{itemize}	
-		\item Se ha asignado a un programador la tarea de revisión.
-		\item La tarea está revisada. 
-		\item Se ha incrementado el tiempo total el tiempo que tarda en revisarse la tarea, el cual depende de la calidad del programador.
+		\item Se ha asignado al programador \texttt{p1} la tarea de revisión de la tarea original \texttt{t}.
+		\item La tarea \texttt{t} está revisada. 
+		\item Se ha incrementado el tiempo total con el tiempo tarda en revisarse la tarea \texttt{t} (este incremento de tiempo depende de la calidad del programador \texttt{p2}).
 	\end{itemize}
 	
 \end{itemize}
@@ -453,7 +454,7 @@ Para cada tarea:
 Además inicializamos el valor de \textit{tiempoTotal}. 
 
 \subsubsection{Estado final}
-Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas. No obstante, en este caso añadimos una métrica: \textbf{minimizar el valor de tiempoTotal}.
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas estén revisadas. No obstante, en este caso añadimos una métrica: \textbf{minimizar el valor de tiempoTotal}.
 \begin{verbatim}
 (:goal (forall (?t - tarea) (tareaRevisada ? t))) 
 (:metric minimize (tiempoTotal))
@@ -569,9 +570,9 @@ En este caso podemos ver como se ha cumplido el objetivo de la extensión que er
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
 \subsection{Dominio}
 \subsubsection{Funciones}
-En esta extensión tenemos que limitar el número de tareas por programador, de manera que necesitamos algun método para mantener la consistencia. En nuestro caso hemos decidido crear una función.
+En esta extensión tenemos que limitar el número de tareas por programador, de manera que necesitamos algún método para mantener la consistencia. En nuestro caso hemos decidido crear una función.
 \begin{itemize}
-	\item \textbf{nTareasProgramador}:Esta función nos servirá para definir y conocer el número de tareas que esta realizando un programor p.  
+	\item \textbf{nTareasProgramador}:Esta función nos servirá para definir y conocer el número de tareas que esta realizando un programador determinado.  
 \end{itemize}
 \subsubsection{Predicados}
 Para esta extensión vamos a utilizar los mismos predicados que la anterior extensión.
@@ -594,7 +595,7 @@ Para cada programador:
 \noindent Además inicializamos los valores de \textit{tiempoTotal} y el número de tareas de cada programador, \textit{nTareasProgramador}. 
 
 \subsubsection{Estado final}
-Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas y además que se minimice el tiempo total. Además, añadimos también la restricción de que cada programador solo puede realizar como máximo 2 tareas. 
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas estén revisadas y además que se minimice el tiempo total. Además, añadimos también la restricción de que cada programador solo puede realizar como máximo 2 tareas. 
 
 \begin{verbatim}
 (:goal (and (forall (?t - tarea) (tareaRevisada ?t))
@@ -606,7 +607,7 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 \subsubsection{Prueba estándard}
 \underline{\textbf{Input}}\\
 
-En este caso introduciremos un juego de prueba estándard sin ninguna complicación para comprovar que se realiza correctamente el objetivo de la extensión. 
+En este caso introduciremos un juego de prueba estándar sin ninguna complicación para comprobar que se realiza correctamente el objetivo de la extensión. 
 \begin{verbatim}
 (define (problem test-01) (:domain task) 
 	(:objects p0 p1 p2 - programador
@@ -652,7 +653,7 @@ plan cost: 14.000000
 \end{verbatim}
 \medskip
 
-\noindent \underline{\textbf{Justifación}}\\
+\noindent \underline{\textbf{Justificación}}\\
 
 En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
 
@@ -719,44 +720,51 @@ Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y
 
 \section{Extensión 4}
 
-En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores.
+En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores. Para ello, minimizaremos la suma ponderada del número de horas y el número de programadores.
+
+La ponderación que consideramos más adecuada (y la que hemos utilizado) es la de dar el mismo peso a los dos criterios (50\% ambos), dado que en nuestras pruebas las tareas requieren pocas horas, y la magnitud del número de tareas y el número de programadores es parecida, y por lo tanto la magnitud del número de horas y del número de programadores es también parecida, y queremos dar la misma importancia a los dos criterios.
+
+En cualquier caso, esta ponderación es en gran medida arbitraria y no existe un valor correcto más allá del que creamos da resultados más útiles.
+
 \subsection{Dominio}
 \subsubsection{Funciones}
-En esta extensión tenemos que conocer el número de trabajadores que tienen alguna tarea asignada por tal de poder minimizar este número. Para tener esta informacion hemos creado una función.
+En esta extensión tenemos que conocer el número de trabajadores que tienen alguna tarea asignada por tal de poder minimizar este número. Para tener esta información hemos creado una función.
 \begin{itemize}
 	\item \textbf{programadoresTotal}:Esta función nos servirá para contar el número total de programadores que tienen asignada alguna tares.  
 \end{itemize}
 \subsubsection{Predicados}
-Para esta extenison hemos añadido un nuevo predicado que nos permite conocer si ya hemos contabilizado al programador para el contador programadoresTotal.
+Para esta extensión hemos añadido un nuevo predicado que nos permite conocer si ya hemos contabilizado al programador para el contador \texttt{programadoresTotal}.
 \begin{itemize}
   \item \verb|(programadorContado ?x - programador)|
   
-  El programador \texttt{x} ha sido contado para la función programadoresTotal.
+  El programador \texttt{x} ha sido contado para la función \texttt{programadoresTotal}.
 \end{itemize}
 \subsubsection{Acciones}
 Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{contar} y \textbf{nocontar}.
 \begin{itemize}
 	\item \textbf{contar}: Esta acción nos sirve para incrementar la función programadoresTotal cuando un programador tiene alguna tarea o revisión asignada. 
+
 	\textbf{Parámetros}
 	\begin{itemize}
-		\item ?p - programador
+		\item \texttt{?p - programador}
 	\end{itemize}
 	\textbf{Precondición}
 	\begin{itemize}
 		\item El programador \texttt{p} no ha sido contado.
 		\item Todas las tareas han sido revisadas.
-		\item El número de tareas del programador \texttt{p} és mayor a 0. 
+		\item El número de tareas del programador \texttt{p} es mayor que 0. 
 	\end{itemize}
 	\textbf{Postcondición}
 	\begin{itemize}	
 		\item El programador \texttt{p} ha sido contado.
-		\item Se ha incrementado en 1 el contador programadoresTotal en uno.
+		\item Se ha incrementado en 1 el contador \texttt{programadoresTotal} en uno.
 	\end{itemize}
 
 	\item \textbf{nocontar}: Esta acción nos sirve para no contar a los programadores sin tareas. 
+	
 	\textbf{Parámetros}
 	\begin{itemize}
-		\item ?p - programador
+		\item \texttt{?p - programador}
 	\end{itemize}
 	\textbf{Precondición}
 	\begin{itemize}
@@ -780,15 +788,15 @@ Para cada programador:
 
 \noindent Para cada tarea:
 \begin{itemize}
-  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos cuanto tiempo tarda en hacerse (en horas).
   	\item Definimos la dificultad de la tarea (1, 2 o 3).
 \end{itemize}
 
-\noindent Además inicializamos los valores de \textit{tiempoTotal}, \textit{programadoresTotal} y el número de tareas de cada programador. 
+\noindent Además, inicializamos a 0 los valores de \texttt{tiempoTotal}, \texttt{programadoresTotal} y el número de tareas de cada programador. 
 
 \subsubsection{Estado final}
-En este caso cómo todas las tareas deben estar inicializadas para poder contar el número de programadores con tareas el estado final se cumplirà cuando se haya contado a todos los programadores y cuando todos los programadores realizen menos de 2 tareas.
-En esta ocasion minimizaremos el tiempo total y el número de programadores. Haciendo pruebas hemos encontrado que una onderación igual nos da buenos resultados, debido a que ambos contadores son parecidos.
+En este caso cómo todas las tareas deben estar inicializadas para poder contar el número de programadores con tareas el estado final se cumplirá cuando se haya contado a todos los programadores y cuando todos los programadores realicen menos de 2 tareas.
+En esta ocasión minimizaremos el tiempo total y el número de programadores. Haciendo pruebas hemos encontrado que una ponderación equitativa nos da buenos resultados, debido a que ambos contadores son parecidos.
 
 \begin{verbatim}
 (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
@@ -861,14 +869,14 @@ plan cost: 15.000000
 \end{verbatim}
 \medskip
 
-\noindent \underline{\textbf{Justifación}}\\
+\noindent \underline{\textbf{Justificación}}\\
 
-Como esperavamos el programa no ha asignado ninguna tarea al programador p4.
+Como esperábamos el programa no ha asignado ninguna tarea al programador p4.
 
 \subsubsection{Prueba minimizar programadores con calidad 2}
 \noindent \underline{\textbf{Input}} \\
 
-Finalmente haremos una prueba con programadores con habilidad 3 y calidad 1 y programadores con habilidad 3 y calidad 2. Esperamos que todos los programadores del segundo grupo no sean asignados o esten asignados a revisiones.
+Finalmente haremos una prueba con programadores con habilidad 3 y calidad 1 y programadores con habilidad 3 y calidad 2. Esperamos que todos los programadores del segundo grupo no sean asignados o estén asignados a revisiones.
 \medskip
 \begin{verbatim}
 (define (problem test-01) (:domain task)
@@ -925,7 +933,7 @@ plan cost: 10.000000
 \end{verbatim}
 \noindent \underline{\textbf{Justificación}} \\
 
-Cómo esperavamos los programadores con calidad 2 no han sido asignados. Creando así la mayor minimización posible.
+Cómo esperábamos los programadores con calidad 2 no han sido asignados. Creando así la mayor minimización posible.
 \medskip
 
 \newpage

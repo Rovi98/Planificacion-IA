@@ -8,7 +8,7 @@
 
 \author{Carlos Bergillos, Adrià Cabeza, Roger Vilaseca}
 
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{3}
 
 \begin{document}
 
@@ -39,7 +39,7 @@ cada programador también tiene asociada una calidad (de 1 a 2)
 Para evitar una recursividad infinita, las nuevas tareas de revisión no requerirán a su vez de revisión, y su tiempo de realización no se verá penalizado por la habilidad del programador que la realiza.
 
 
-\section{Nivel básico}
+\section{Nivel básico} \label{basic}
 En esta primera versión....
 
 
@@ -60,19 +60,19 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
   \item \textbf{habilidadProgramador:}
   \item \textbf{dificultadTarea:}
 \end{itemize}
-\subsubsection{Predicados}
+\subsubsection{Predicados} \label{basic_predicado}
 \begin{itemize}
   \item \textbf{asignacion:}
   \item \textbf{tareaAsignada:}
 \end{itemize}
-\subsubsection{Acciones}
+\subsubsection{Acciones} \label{basic_accion}
 \begin{itemize}
   \item \textbf{asignar:}
 \end{itemize}
 
 \subsection{Problema}
 \subsubsection{Objetos}
-\subsubsection{Estado inicial}
+\subsubsection{Estado inicial} \label{basic_estadoinicial}
 \subsubsection{Estado final}
 
 \subsection{Juegos de prueba}
@@ -80,17 +80,72 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
 
 \section{Extensión 1}
 
+En esta extensión, vamos a añadir a nuestro programa la revision de tareas.
+La revisón de tareas consiste en que cada vez que algun programador realice una tarea, esta deberá ser revisada por otro programador. La dificultad de la revision será la misma que de la tarea y por lo tanto utilizaremos el mismo criterio para asignar un programador, para revisar que en la sección \ref{basic}.
+
 \subsection{Dominio}
 \subsubsection{Funciones}
+
+Para esta extensión vamos a utilizar las mismas funciones que en el apartado anterior.
+
 \subsubsection{Predicados}
+
+\begin{itemize}
+  \item \textbf{asignacionTarea:} Equivalente al predicado "asignacion" en la seccion \ref{basic_predicado}.
+  \item \textbf{asignacionRevision:} Predicado utilizado para asignar a una tarea un programador para que este la revise. 
+  \item \textbf{tareaAsignada:} Igual que en la sección \ref{basic_predicado}.
+  \item \textbf{tareaRevisada:} Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+\end{itemize}
+
 \subsubsection{Acciones}
 
+\begin{itemize}
+  \item \textbf{asignar:} Esta acción és equivalente a la acción "assignar" explicada en la sección \ref{basic_accion}. Donde el único cambio és el cambio de nombre del predicado de "asignacion" a "asignacionTarea".
+  \item \textbf{revisar:} El objetivo de esta acción es a partir de las tareas ya asignadas, asignar una revisión a todas la tareas con un programador diferente del que ha tenido asignada la tarea, el cual debe tener habilidad suficientemente grande para poder revisarla.
+  
+  \textbf{Parametros}
+  \begin{itemize}
+  	\item ?p - programador
+  	\item ?t - tarea
+  \end{itemize}
+  
+  \textbf{Precondición}
+  
+  Para poder realizar esta acción se debe cumplir:
+  \begin{itemize}
+  	\item La tarea debe estar asignada.
+  	\item La tarea no debe estar revisada
+  	\item La habilidad del programador debe ser màs grande o igual que la dificultad de la tarea más uno.
+  	\item El programador que revisa la tarea no puede ser el mismo que el que le ha sido asignada.
+  \end{itemize}
+  
+  (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
+  
+  \textbf{Postcondición}
+  
+  Esta acción probocará:
+  \begin{itemize}
+  	\item Un programador será el revisor de la tarea.
+  	\item La tarea estará revisada.
+  \end{itemize}
+  
+  (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
+  
+\end{itemize}
+
 \subsection{Problema}
-\subsubsection{Objetos}
 \subsubsection{Estado inicial}
+
+En este caso el estado inicial serà equivalente al de la sección \ref{basic_estadoinicial}.
+
 \subsubsection{Estado final}
 
+El estado final remplazaremos la comprovación de de que todas las tareas estén asignadas, por la comprovación de que todas las tareas estén revisadas.
+
+(forall (?t - tarea) (tareaRevisada ?t))
+
 \subsection{Juegos de prueba}
+
 
 
 \section{Extensión 2}
@@ -101,7 +156,6 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
 \subsubsection{Acciones}
 
 \subsection{Problema}
-\subsubsection{Objetos}
 \subsubsection{Estado inicial}
 \subsubsection{Estado final}
 
@@ -116,7 +170,6 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
 \subsubsection{Acciones}
 
 \subsection{Problema}
-\subsubsection{Objetos}
 \subsubsection{Estado inicial}
 \subsubsection{Estado final}
 
@@ -131,7 +184,6 @@ Para las próximas extensiones ya no se requieren más cambios en las variables,
 \subsubsection{Acciones}
 
 \subsection{Problema}
-\subsubsection{Objetos}
 \subsubsection{Estado inicial}
 \subsubsection{Estado final}
 

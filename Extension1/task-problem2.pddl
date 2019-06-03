@@ -5,8 +5,6 @@
         (= (habilidadProgramador p1) 2)
         (= (habilidadProgramador p2) 2)
         
-        (= (calidadProgramador p1) 1)
-        (= (calidadProgramador p2) 2)
         
         (= (dificultadTarea t1) 1)
         (= (dificultadTarea t2) 2)

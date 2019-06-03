@@ -4,8 +4,7 @@
     
     (:functions
         (habilidadProgramador ?p - programador)
-        (dificultadTarea ?t - tarea)
-        (calidadProgramador ?p - programador))
+        (dificultadTarea ?t - tarea))
     
     (:predicates
         (asignacionTarea ?x - programador ?y - tarea)

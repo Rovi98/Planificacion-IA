@@ -208,14 +208,33 @@ En la siguiente extensión, partiendo de la anterior extensión, tenemos como ob
 \\
 En este caso, minimizar significa otorgar las tareas dependiendo de la calidad del programador para que las tareas de revisión sean menos duraderas. 
 \subsection{Dominio}
-
 \subsubsection{Funciones}
+
+Puesto a que esta es la primera extensión donde observamos el concepto de tiempo, hemos tenido que añadir funciones además de las mencionadas anteriormente. 
+\begin{itemize}
+\item \textbf{tiempoTarea}: Esta función nos servirá para definir y conocer el tiempo asociado a una tarea \texit{T}.
+\item \textbf{tiempoTotal}: Esta función nos servirá para definir y conocer la suma de duración de todas las tareas. Es decir el tiempo total que representa el conjunto de tareas. 
+
+\end{itemize}
 \subsubsection{Predicados}
+En cuanto a lo que concierne a los predicados, utilizamos los mismos que en la extensión anterior.
 \subsubsection{Acciones}
+\begin{itemize}
+	\item \textbf{asignarDificil}
+	\item \textbf{asignar}
+\end{itemize}
 
 \subsection{Problema}
 \subsubsection{Estado inicial}
+Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+\end{itemize}
+Además inicializamos el valor de \textit{tiempoTotal}. 
+
 \subsubsection{Estado final}
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas. No obstante, en este caso añadimos una métrica: \textbf{minimizar el valor de tiempoTotal}.
+
 
 \subsection{Juegos de prueba}
 

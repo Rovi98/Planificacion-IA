@@ -22,6 +22,17 @@
 
 
 \section{Introducción}
+En esta práctica tendremos que resolver un problema de planificación usando \emph{Metric FastForward} (\emph{Metric-FF}). Éste es un planificador que nos permite resolver problemas de planificación definidos en lenguaje PDDL (\emph{Planning Domain Definition Language}).
+
+La modelización de los problemas PDDL se divide conceptualmente en dos partes:
+\begin{itemize}
+	\item \textbf{Modelización del dominio:} Contiene las definiciones del ``mundo" del problema. Definiremos aquí todo aquello que es invariante para cualquier instanciación del problema, por ejemplo los tipos, las acciones y los predicados disponibles.
+	\item \textbf{Modelización del problema:} Contiene la información concreta del problema para el dominio dado. Pueden existir infinitos problemas para un mismo dominio. Por ejemplo, aquí definiremos los objetos que intervienen en el problema concreto, y definiremos el estado inicial y el estado objetivo.
+\end{itemize}
+
+Dada un modelizacion del dominio y una modelizacion del problema, el planificador se encargará de buscarnos un plan válido (si existiera), que contendrá una secuencia de acciones que nos llevarán del estado inicial al estado inicial.
+
+Además, para ciertas extensiones de la práctica, no solo nos interesará buscar un plan válido cualquiera, sino que nos interesará encontrar un plan que optimice un criterio dado (una métrica).
 
 \section{Descripción del problema}
 En esta práctica nos encargaremos de planificar un proyecto de programación de gran envergadura.

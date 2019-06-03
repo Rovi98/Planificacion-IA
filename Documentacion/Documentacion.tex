@@ -1,19 +1,26 @@
 \title{}
 \date{\today}
-\documentclass[12pt]{article}
-
+\documentclass[11pt]{article}
+\usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{appendix}
+\date{Junio 3, 2019}
+\usepackage[margin=1.4in]{geometry}
 \usepackage[hidelinks]{hyperref}
-
+\renewcommand{\appendixname}{Anexo}
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\appendixpagename}{Anexos}
 \author{Carlos Bergillos, Adrià Cabeza, Roger Vilaseca}
-
+\title{Asignación de tareas a programadores usando PDDL  \\ \large IA FIB @ UPC}
 \setcounter{tocdepth}{3}
 
 \begin{document}
 
 \maketitle
-
+\vspace*{\fill}
+\begin{center}
+\includegraphics[scale=0.35]{images/UPClogo.png}
+\end{center}
 \newpage
 
 \tableofcontents
@@ -141,16 +148,32 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
 \subsubsection{Predicados}
 
 \begin{itemize}
-  \item \textbf{asignacionTarea:} Equivalente al predicado "asignacion" en la sección \ref{basic_predicado}.
-  \item \textbf{asignacionRevision:} Predicado utilizado para asignar a una tarea un programador para que este la revise. 
-  \item \textbf{tareaAsignada:} Igual que en la sección \ref{basic_predicado}.
-  \item \textbf{tareaRevisada:} Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+  \item \verb|(asignacionTarea ?x - programador ?y - tarea)|
+  
+  Equivalente al predicado "asignacion" en la sección \ref{basic_predicado}.
+  
+  
+  \item \verb|(asignacionRevision ?x - programador ?y - tarea)|
+  
+  Predicado utilizado para asignar a una tarea un programador para que este la revise. 
+  
+  
+  \item \verb|(tareaAsignada ?x - tarea)|
+  
+  Igual que en la sección \ref{basic_predicado}.
+  
+  
+  \item \verb|(tareaRevisada ?x - tarea)|
+  
+  Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+  
 \end{itemize}
 
 \subsubsection{Acciones}
 
 \begin{itemize}
-  \item \textbf{asignar:} Esta acción és equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
+  \item \textbf{asignar:}
+  Esta acción és equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
   \item \textbf{revisar:} El objetivo de esta acción es a partir de las tareas ya asignadas, asignar una revisión a todas la tareas con un programador diferente del que ha tenido asignada la tarea, el cual debe tener habilidad suficientemente grande para poder revisarla.
   
   \textbf{Parámetros}
@@ -163,79 +186,539 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
   
   Para poder realizar esta acción se debe cumplir:
   \begin{itemize}
-  	\item La tarea debe estar asignada.
-  	\item La tarea no debe estar revisada
-  	\item La habilidad del programador debe ser más grande o igual que la dificultad de la tarea más uno.
-  	\item El programador que revisa la tarea no puede ser el mismo que el que le ha sido asignada.
+  	\item La tarea \texttt{t} esta asignada.
+  	\item La tarea \texttt{t} no esta revisada
+  	\item La habilidad del programador \texttt{p} debe ser más grande o igual que la dificultad de la tarea \texttt{t} más uno.
+  	\item El programador \texttt{p} no puede ser el programador que ha realizado la tarea \texttt{t}.
   \end{itemize}
-  
-  (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
-  
+%\begin{verbatim}
+ % (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
+ % \end{verbatim}
+ 
   \textbf{Postcondición}
   
   \begin{itemize}
-  	\item Un programador será el revisor de la tarea.
-  	\item La tarea estará revisada.
+  	\item La tarea \texttt{t} ha sido revisada por el programador \texttt{p}.
+  	\item La tarea \texttt{t} está revisada.
   \end{itemize}
-  
-  (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
-  
+%\begin{verbatim}
+ % (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
+ % \end{verbatim}
 \end{itemize}
 
 \subsection{Problema}
 \subsubsection{Estado inicial}
 
-En este caso el estado inicial será equivalente al de la sección \ref{basic_estadoinicial}.
+Para cada tarea:
+\begin{itemize}
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent
+Y para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+\end{itemize}
 
 \subsubsection{Estado final}
 
 El estado final remplazaremos la comprobación de de que todas las tareas estén asignadas, por la comprobación de que todas las tareas estén revisadas.
-
+\begin{verbatim}
 (forall (?t - tarea) (tareaRevisada ?t))
-
+\end{verbatim}
 \subsection{Juegos de prueba}
 
+\subsubsection{Prueba estandard}
+\underline{\textbf{Input}}\\
 
+En este caso introduciremos un juego de prueba con suficientes programadores para poder realizar todas las tareas y revisarlas.
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 - programador
+			  t1 t2 t3 t4 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 2)
+        (= (habilidadProgramador p2) 2)
+        
+        
+        (= (dificultadTarea t1) 1)
+        (= (dificultadTarea t2) 2)
+        (= (dificultadTarea t3) 3)
+        (= (dificultadTarea t4) 2)
+    )
+
+    (:goal (forall (?t - tarea) (tareaRevisada ?t))))
+ \end{verbatim}
+ \medskip
+ 
+ \noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P1 T4
+        1: REVISAR P2 T4
+        2: ASIGNAR P1 T3
+        3: REVISAR P2 T3
+        4: ASIGNAR P1 T2
+        5: REVISAR P2 T2
+        6: ASIGNAR P1 T1
+        7: REVISAR P2 T1
+\end{verbatim}
+\medskip
+
+\noindent \underline{\textbf{Justifación}}\\
+
+Como podemos observar todos los programadores tienen un nivel suficiente para poder realizar cualquier tarea, por este motivo se asignan todas las tareas a un programador y todas las revisiones al otro.
+
+\subsubsection{Prueba imposible de realizar}
+\noindent \underline{\textbf{Input}} \\
+
+En este caso habrá un programador con habilidad 2 y otro con habilidad 1. También habrà una tarea de dificultad 3. Cómo las tareas para revisión necesitan un programador con suficiente habilidad no se encontrarà ninguna solución porque la tarea en question no tendrà ningún programador capaz de revisarla.
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 - programador
+			  t1 t2 t3 t4 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 1)
+        (= (habilidadProgramador p2) 2)
+        
+        
+        (= (dificultadTarea t1) 1)
+        (= (dificultadTarea t2) 2)
+        (= (dificultadTarea t3) 3)
+        (= (dificultadTarea t4) 2)
+    )
+
+    (:goal (forall (?t - tarea) (tareaRevisada ?t))))
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+weighted A* search space empty! problem proven unsolvable.
+\end{verbatim}
+\noindent \underline{\textbf{Justificación}} \\
+
+Tal i cómo esperavamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
+\medskip
 
 \section{Extensión 2}
-
+En la siguiente extensión, partiendo de la anterior, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
+\\
+En este caso, minimizar significa otorgar las tareas dependiendo de la habilidad o calidad del programador para que las tareas o sus respectivas revisiones sean menos duraderas. 
 \subsection{Dominio}
 \subsubsection{Funciones}
+
+Puesto a que esta es la primera extensión donde observamos el concepto de tiempo, hemos tenido que añadir funciones además de las mencionadas anteriormente. 
+\begin{itemize}
+
+\item \textbf{tiempoTarea}: Esta función nos servirá para definir y conocer el tiempo asociado a una tarea \textit{T}.
+\item \textbf{tiempoTotal}: Esta función nos servirá para definir y conocer la suma de duración de todas las tareas. Es decir el tiempo total que representa el conjunto de tareas. 
+
+\end{itemize}
 \subsubsection{Predicados}
+En cuanto a lo que concierne a los predicados, utilizamos los mismos que en la extensión anterior.
 \subsubsection{Acciones}
+Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{asignarDificil} y modificar \textbf{asignar} y \textbf{revisar} para añadir los conceptos de tiempo en nuestro sistema.
+\begin{itemize}
+	\item \textbf{asignar}: Esta acción nos sirve para asignar una tarea a un programador que tiene un valor mayor o igual a la dificultadTarea. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+		\item ?t - tarea
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item La tarea t no está asignada
+		\item La habilidad del programador p es igual o mayor a la dificultad de la tarea. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item La tarea t ha sido asignada al programador p.
+		\item Se ha incrementado el tiempo total en  el tiempo que tarda en realizarse la tarea.
+	\end{itemize}
+
+	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad igual a la dificultad de la tarea menos 1. En este caso se incrementa el tiempo total en el tiempo que tarda en realizarse la tarea con una penalización de 2 horas denido a su habilidad.
+
+	\item \textbf{revisar}: Esta acción nos sirve para asignar una tarea de revisión a un programador. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+		\item ?t - tarea
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item La tarea t no está asignada
+		\item La tarea no debe estar revisada
+		\item La habilidad del programador p debe ser más grande o igual que la dificultad de la tarea p más uno.
+		\item El programador que revisa la tarea no puede ser el mismo que el que la ha realizado. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item Se ha asignado a un programador la tarea de revisión.
+		\item La tarea está revisada. 
+		\item Se ha incrementado el tiempo total el tiempo que tarda en revisarse la tarea, el cual depende de la calidad del programador.
+	\end{itemize}
+	
+\end{itemize}
 
 \subsection{Problema}
 \subsubsection{Estado inicial}
+\noindent
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
+\end{itemize}
+
+Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+Además inicializamos el valor de \textit{tiempoTotal}. 
+
 \subsubsection{Estado final}
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas. No obstante, en este caso añadimos una métrica: \textbf{minimizar el valor de tiempoTotal}.
+\begin{verbatim}
+(:goal (forall (?t - tarea) (tareaRevisada ? t))) 
+(:metric minimize (tiempoTotal))
+\end{verbatim}
 
 \subsection{Juegos de prueba}
+\subsubsection{Prueba que minimice según la habilidad del programador} 
+\underline{\textbf{Input}}
+\\
 
+En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizar el tiempo con las asignaciones realizadas según la habilidad del programador. 
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 1)
+
+	(=  (habilidadProgramador p1) 2)
+	(=  (calidadProgramador p1) 1)
+
+	(=  (habilidadProgramador p2) 5)
+	(=  (calidadProgramador p2) 1)
+
+	(=  (dificultadTarea t0)2)
+	(=  (tiempoTarea t0)6)
+
+	(=  (dificultadTarea t1)2)
+	(=  (tiempoTarea t1)2)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (:metric minimize (tiempoTotal))
+)
+
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\\
+
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P2 T1
+        1: ASIGNAR P2 T0
+        2: REVISAR P1 P2 T1
+        3: REVISAR P1 P2 T0
+plan cost: 10.000000
+\end{verbatim}
+\noindent \underline{{\textbf{Justificación}}}
+\\
+
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la habilidad del programador: Se han asignado las dos tareas al programador 5 porque es el que tiene más habilidad y eso significa menos tiempo de revisión.
+
+\subsubsection{Prueba que optimize según la calidad del programador} 
+\underline{\textbf{Input}}
+\\
+
+En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizarel tiempo con las asignaciones realizadas según la calidad del programador. 
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 1)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 2)
+
+	(=  (habilidadProgramador p2) 2)
+	(=  (calidadProgramador p2) 2)
+
+	(=  (dificultadTarea t0)1)
+	(=  (tiempoTarea t0)6)
+
+	(=  (dificultadTarea t1)1)
+	(=  (tiempoTarea t1)2)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (:metric minimize (tiempoTotal))
+)
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\\
+
+\begin{verbatim}
+
+ff: found legal plan as follows
+step    0: ASIGNAR P0 T0
+        1: REVISAR P1 P0 T0
+        2: ASIGNAR P0 T1
+        3: REVISAR P1 P0 T1
+plan cost: 10.000000
+\end{verbatim}
+
+\medskip
+
+
+\noindent \underline{\textbf{Justificación}}
+\\
+
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la calidad del programador: se le han asignado todas las tareas de realización al programador 0 ya que este tiene de calidad 1 y eso significa menos tiempo de revisión hacia sus otros compañeros. 
 
 \section{Extensión 3}
-
+En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
 \subsection{Dominio}
 \subsubsection{Funciones}
+En esta extensión tenemos que limitar el número de tareas por programador, de manera que necesitamos algun método para mantener la consistencia. En nuestro caso hemos decidido crear una función.
+\begin{itemize}
+	\item \textbf{nTareasProgramador}:Esta función nos servirá para definir y conocer el número de tareas que esta realizando un programor p.  
+\end{itemize}
 \subsubsection{Predicados}
+Para esta extensión vamos a utilizar los mismos predicados que la anterior extensión.
 \subsubsection{Acciones}
-
+Para esta extensión vamos a utilizar las mismas acciones que en la anterior extensión.
 \subsection{Problema}
 \subsubsection{Estado inicial}
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
+\end{itemize}
+
+\noindent Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent Además inicializamos los valores de \textit{tiempoTotal} y el número de tareas de cada programador, \textit{nTareasProgramador}. 
+
 \subsubsection{Estado final}
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas y además que se minimice el tiempo total. Además, añadimos también la restricción de que cada programador solo puede realizar como máximo 2 tareas. 
 
+\begin{verbatim}
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+	(forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+
+(:metric minimize (tiempoTotal))
+\end{verbatim}
 \subsection{Juegos de prueba}
+\subsubsection{Prueba estándard}
+\underline{\textbf{Input}}\\
 
+En este caso introduciremos un juego de prueba estándard sin ninguna complicación para comprovar que se realiza correctamente el objetivo de la extensión. 
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 3)
+	(=  (calidadProgramador p0) 2)
+	(=  (nTareasProgramador p0) 0)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 2)
+	(=  (nTareasProgramador p1) 0)
+
+	(=  (habilidadProgramador p2) 3)
+	(=  (calidadProgramador p2) 2)
+	(=  (nTareasProgramador p2) 0)
+
+	(=  (dificultadTarea t0)1)
+	(=  (tiempoTarea t0)4)
+
+	(=  (dificultadTarea t1)3)
+	(=  (tiempoTarea t1)6)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+ (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+ (:metric minimize (tiempoTotal))
+ )
+ \end{verbatim}
+ \medskip
+
+ \noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P0 T1
+        1: REVISAR P2 P0 T1
+        2: ASIGNAR P1 T0
+        3: REVISAR P2 P1 T0
+plan cost: 14.000000
+
+\end{verbatim}
+\medskip
+
+\noindent \underline{\textbf{Justifación}}\\
+
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
+
+\subsubsection{Prueba imposible de realizar}
+\noindent \underline{\textbf{Input}} 
+\\
+
+En este caso hemos creado un juego de prueba que resulte imposible de realizar ya que cada persona tendría que realizar más de 2 tareas. 
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 t2 t3 t4 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 2)
+	(=  (calidadProgramador p0) 1)
+	(=  (nTareasProgramador p0) 0)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 1)
+	(=  (nTareasProgramador p1) 0)
+
+	(=  (habilidadProgramador p2) 1)
+	(=  (calidadProgramador p2) 2)
+	(=  (nTareasProgramador p2) 0)
+
+	(=  (dificultadTarea t0)2)
+	(=  (tiempoTarea t0)1)
+
+	(=  (dificultadTarea t1)1)
+	(=  (tiempoTarea t1)4)
+
+	(=  (dificultadTarea t2)1)
+	(=  (tiempoTarea t2)1)
+
+	(=  (dificultadTarea t3)3)
+	(=  (tiempoTarea t3)5)
+
+	(=  (dificultadTarea t4)1)
+	(=  (tiempoTarea t4)6)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+ (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+ (:metric minimize (tiempoTotal))
+ )
+
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\\
+
+\begin{verbatim}
+Astar epsilon search space empty!
+Bailing out.
+\end{verbatim}
+\noindent \underline{\textbf{Justificación}}\\
+
+Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
+\medskip
 
 \section{Extensión 4}
 
+En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores. 
 \subsection{Dominio}
 \subsubsection{Funciones}
+En esta extensión tenemos que conocer el número de trabajadores que tienen alguna tarea asignada por tal de poder minimizar este número. Para tener esta informacion hemos creado una función.
+\begin{itemize}
+	\item \textbf{programadoresTotal}:Esta función nos servirá para contar el número total de programadores que tienen asignada alguna tares.  
+\end{itemize}
 \subsubsection{Predicados}
+Para esta extenison hemos añadido un nuevo predicado que nos permite conocer si ya hemos contabilizado al programador para el contador programadoresTotal.
+\begin{itemize}
+  \item \verb|(programadorContado ?x - programador)|
+  
+  El programador \texttt{x} ha sido contado para la función programadoresTotal.
+\end{itemize}
 \subsubsection{Acciones}
+Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{contar} y \textbf{nocontar}.
+\begin{itemize}
+	\item \textbf{contar}: Esta acción nos sirve para incrementar la función programadoresTotal cuando un programador tiene alguna tarea o revisión asignada. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item El programador \texttt{p} no ha sido contado.
+		\item Todas las tareas han sido revisadas.
+		\item El número de tareas del programador \texttt{p} és mayor a 0. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item El programador \texttt{p} ha sido contado.
+		\item Se ha incrementado en 1 el contador programadoresTotal en uno.
+	\end{itemize}
 
+	\item \textbf{nocontar}: Esta acción nos sirve para no contar a los programadores sin tareas. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item El programador \texttt{p} no ha sido contado.
+		\item Todas las tareas han sido revisadas.
+		\item El número de tareas del programador \texttt{p} és igual a 0. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item El programador \texttt{p} ha sido contado.
+	\end{itemize}
+	
+\end{itemize}
 \subsection{Problema}
 \subsubsection{Estado inicial}
-\subsubsection{Estado final}
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
+\end{itemize}
 
+\noindent Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent Además inicializamos los valores de \textit{tiempoTotal}, \textit{programadoresTotal} y el número de tareas de cada programador. 
+
+\subsubsection{Estado final}
+En este caso cómo todas las tareas deben estar inicializadas para poder contar el número de programadores con tareas el estado final se cumplirà cuando se haya contado a todos los programadores y cuando todos los programadores realizen menos de 2 tareas.
+En esta ocasion minimizaremos el tiempo total y el número de programadores.
+
+\begin{verbatim}
+(:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
+					(programadorContado ?p))))
+    
+(:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+\end{verbatim}
 \subsection{Juegos de prueba}
 
 
@@ -249,5 +732,16 @@ El estado final remplazaremos la comprobación de de que todas las tareas estén
 
 \section{Generador de juegos de prueba}
 
+Generar a mano varios casos de prueba es una tarea ardua y monótona que puede ser fácilmente automatizable, así pues, para poder probar varios valores rápidamente, decidimos crear un generador de juegos de prueba. En nuestro caso hemos decidido utilizar el lenguaje de scripting \textbf{Python} para generar casos de prueba automáticamente.
+\medskip
+
+Nuestro generador de pruebas admite tres parámetros distintos:
+\begin{itemize}
+	\item \textit{--programadores P}, donde P es el número de programadores que queremos
+	\item \textit{--tareas T}, donde T es el número de programadores que queremos
+	\item \textit{--extension E} donde E es la extensión que deseamos utilizar. 
+\end{itemize}
+\medskip
+\noindent Finalmente se genera un documento llamado \textit{fichero\_generadoN.pddl} donde la N es la extensión que hemos seleccionado en los argumentos del programa. 
 
 \end{document}

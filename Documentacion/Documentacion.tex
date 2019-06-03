@@ -205,9 +205,9 @@ El estado final remplazaremos la comprobación de de que todas las tareas estén
 
 
 \section{Extensión 2}
-En la siguiente extensión, partiendo de la anterior extensión, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
+En la siguiente extensión, partiendo de la anterior, tenemos como objetivo minimizar el tiempo total que se usa en resolver todas las tareas. El tiempo total se interpreta como la suma de las horas de las tareas, tanto las principales como las de revisión. 
 \\
-En este caso, minimizar significa otorgar las tareas dependiendo de la calidad del programador para que las tareas de revisión sean menos duraderas. 
+En este caso, minimizar significa otorgar las tareas dependiendo de la habilidad o calidad del programador para que las tareas o sus respectivas revisiones sean menos duraderas. 
 \subsection{Dominio}
 \subsubsection{Funciones}
 
@@ -265,9 +265,16 @@ Además de las acciones utilizadas anteriormente hemos tenido que añadir \textb
 
 \subsection{Problema}
 \subsubsection{Estado inicial}
+\noindent
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+\end{itemize}
+
 Para cada tarea:
 \begin{itemize}
   	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
 \end{itemize}
 Además inicializamos el valor de \textit{tiempoTotal}. 
 
@@ -282,16 +289,41 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 
 
 \section{Extensión 3}
-
+En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
 \subsection{Dominio}
 \subsubsection{Funciones}
+En esta extensión tenemos que limitar el número de tareas por programador, de manera que necesitamos algun método para mantener la consistencia. En nuestro caso hemos decidido crear una función.
+\begin{itemize}
+	\item \textbf{nTareasProgramador}:Esta función nos servirá para definir y conocer el número de tareas que esta realizando un programor p.  
+\end{itemize}
 \subsubsection{Predicados}
+Para esta extensión vamos a utilizar los mismos predicados que la anterior extensión.
 \subsubsection{Acciones}
-
+Para esta extensión vamos a utilizar las mismas acciones que en la anterior extensión.
 \subsection{Problema}
 \subsubsection{Estado inicial}
-\subsubsection{Estado final}
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+\end{itemize}
 
+\noindent Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent Además inicializamos los valores de \textit{tiempoTotal} y el número de tareas de cada programador. 
+
+\subsubsection{Estado final}
+Para el estado final, de la misma manera que en la anterior extensión, requerimos que todas las tareas esten revisadas y además que se minimice el tiempo total. Además, añadimos también la restricción de que cada programador solo puede realizar como máximo 2 tareas. 
+
+\begin{verbatim}
+(:goal (and (forall (?t - tarea) (tareaRevisada ?t))
+	(forall (?p - programador) (<= (nTareasProgramador ?p) 2))))
+
+(:metric minimize (tiempoTotal))
+\end{verbatim}
 \subsection{Juegos de prueba}
 
 

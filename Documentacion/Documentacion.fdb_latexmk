@@ -1,6 +1,13 @@
 # Fdb version 3
+<<<<<<< HEAD
 ["pdflatex"] 1559590326 "Documentacion.tex" "Documentacion.pdf" "Documentacion" 1559590326
   "/etc/texmf/web2c/texmf.cnf" 1556823659 475 c0e671620eb5563b2130f56340a5fde8 ""
+=======
+["pdflatex"] 1559590418 "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.tex" "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.pdf" "Documentacion" 1559590418
+  "/etc/texmf/web2c/texmf.cnf" 1557761586 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.aux" 1559590418 6633 6635a7c4b08e7225c1601ef492081790 ""
+  "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.tex" 1559590417 24824 0edea34ada39889ea21baf2b9d253fd3 ""
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -64,6 +71,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1480098842 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
+<<<<<<< HEAD
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1556823805 127853 b41f58aff49fe1af38af8d065f49d51c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1556823808 859409 05d8ba5462f652291a2bb95fbdfcf5be ""
   "Documentacion.aux" 1559590326 6633 72291918a86f7d444574d1b3a2a0dbad ""
@@ -77,3 +85,20 @@
   "Documentacion.pdf"
   "Documentacion.toc"
   "Documentacion.out"
+=======
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1557763522 127853 b41f58aff49fe1af38af8d065f49d51c ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1557763523 859996 639dcd897713e5bf50af5ccdcfcccdb8 ""
+  "Documentacion.aux" 1559590418 6633 6635a7c4b08e7225c1601ef492081790 ""
+  "Documentacion.out" 1559590418 3722 caadd4bd2f3501d31fc0488ed221bbc4 ""
+  "Documentacion.tex" 1559590417 24824 0edea34ada39889ea21baf2b9d253fd3 ""
+  "Documentacion.toc" 1559590418 4685 521f1dce1b51e837ac7c3ef85ae36097 ""
+  "images/UPClogo.png" 1559585549 9583 67772a9e25a1d8c4e9be185846e9efc7 ""
+  (generated)
+  "Documentacion.out"
+  "Documentacion.log"
+  "Documentacion.aux"
+  "Documentacion.pdf"
+  "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.pdf"
+  "/home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.log"
+  "Documentacion.toc"
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745

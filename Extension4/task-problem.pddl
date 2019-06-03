@@ -31,9 +31,8 @@
 
     
 
-    (:goal (and (forall (?t - tarea) (tareaRevisada ?t))
-				(forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
-												(programadorContado ?p)))))
+    (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
+											(programadorContado ?p))))
     
     (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
     )

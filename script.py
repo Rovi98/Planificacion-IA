@@ -62,7 +62,7 @@ elif args.extension is 2:
 elif args.extension is 3:
     a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t))\n (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))\n (:metric minimize (tiempoTotal))\n "
 else: 
-    a += "(:goal (and (forall (?t - tarea) (tareaRevisada ?t))\n (forall (?p - programador) (<= (nTareasProgramador ?p) 2))))\n (:metric minimize (+ (tiempoTotal) (programadoresTotal)))\n"
+    a += "(:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2) (programadorContado ?p))))\n (:metric minimize (+ (tiempoTotal) (programadoresTotal)))\n"
 a+= ")"
 
     

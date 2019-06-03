@@ -148,16 +148,32 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
 \subsubsection{Predicados}
 
 \begin{itemize}
-  \item \textbf{asignacionTarea:} Equivalente al predicado "asignacion" en la sección \ref{basic_predicado}.
-  \item \textbf{asignacionRevision:} Predicado utilizado para asignar a una tarea un programador para que este la revise. 
-  \item \textbf{tareaAsignada:} Igual que en la sección \ref{basic_predicado}.
-  \item \textbf{tareaRevisada:} Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+  \item \verb|(asignacionTarea ?x - programador ?y - tarea)|
+  
+  Equivalente al predicado "asignacion" en la sección \ref{basic_predicado}.
+  
+  
+  \item \verb|(asignacionRevision ?x - programador ?y - tarea)|
+  
+  Predicado utilizado para asignar a una tarea un programador para que este la revise. 
+  
+  
+  \item \verb|(tareaAsignada ?x - tarea)|
+  
+  Igual que en la sección \ref{basic_predicado}.
+  
+  
+  \item \verb|(tareaRevisada ?x - tarea)|
+  
+  Predicado para conocer si la tarea en questión ha sido revisada por algún programador.
+  
 \end{itemize}
 
 \subsubsection{Acciones}
 
 \begin{itemize}
-  \item \textbf{asignar:} Esta acción és equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
+  \item \textbf{asignar:}
+  Esta acción és equivalente a la acción ``asignar" explicada en la sección \ref{basic_accion}. Donde el único cambio es el cambio de nombre del predicado de ``asignacion" a "asignacionTarea".
   \item \textbf{revisar:} El objetivo de esta acción es a partir de las tareas ya asignadas, asignar una revisión a todas la tareas con un programador diferente del que ha tenido asignada la tarea, el cual debe tener habilidad suficientemente grande para poder revisarla.
   
   \textbf{Parámetros}
@@ -170,19 +186,20 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
   
   Para poder realizar esta acción se debe cumplir:
   \begin{itemize}
-  	\item La tarea debe estar asignada.
-  	\item La tarea no debe estar revisada
-  	\item La habilidad del programador debe ser más grande o igual que la dificultad de la tarea más uno.
-  	\item El programador que revisa la tarea no puede ser el mismo que el que le ha sido asignada.
+  	\item La tarea \texttt{t} esta asignada.
+  	\item La tarea \texttt{t} no esta revisada
+  	\item La habilidad del programador \texttt{p} debe ser más grande o igual que la dificultad de la tarea \texttt{t} más uno.
+  	\item El programador \texttt{p} no puede ser el programador que ha realizado la tarea \texttt{t}.
   \end{itemize}
 %\begin{verbatim}
  % (and (tareaAsignada ?t) (not (tareaRevisada ?t)) (>= (habilidadProgramador ?p) (- (dificultadTarea ?t) 1)) (not (asignacionTarea ?p ?t)))
  % \end{verbatim}
+ 
   \textbf{Postcondición}
   
   \begin{itemize}
-  	\item Un programador será el revisor de la tarea.
-  	\item La tarea estará revisada.
+  	\item La tarea \texttt{t} ha sido revisada por el programador \texttt{p}.
+  	\item La tarea \texttt{t} está revisada.
   \end{itemize}
 %\begin{verbatim}
  % (and (asignacionRevision ?p ?t) (tareaRevisada ?t))
@@ -192,7 +209,16 @@ Para esta extensión vamos a utilizar las mismas funciones que en el apartado an
 \subsection{Problema}
 \subsubsection{Estado inicial}
 
-En este caso el estado inicial será equivalente al de la sección \ref{basic_estadoinicial}.
+Para cada tarea:
+\begin{itemize}
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent
+Y para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+\end{itemize}
 
 \subsubsection{Estado final}
 
@@ -211,6 +237,7 @@ En este caso, minimizar significa otorgar las tareas dependiendo de la habilidad
 
 Puesto a que esta es la primera extensión donde observamos el concepto de tiempo, hemos tenido que añadir funciones además de las mencionadas anteriormente. 
 \begin{itemize}
+
 \item \textbf{tiempoTarea}: Esta función nos servirá para definir y conocer el tiempo asociado a una tarea \textit{T}.
 \item \textbf{tiempoTotal}: Esta función nos servirá para definir y conocer la suma de duración de todas las tareas. Es decir el tiempo total que representa el conjunto de tareas. 
 
@@ -267,6 +294,7 @@ Además de las acciones utilizadas anteriormente hemos tenido que añadir \textb
 Para cada programador:
 \begin{itemize}
   	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
 \end{itemize}
 
 Para cada tarea:
@@ -335,6 +363,7 @@ Para esta extensión vamos a utilizar las mismas acciones que en la anterior ext
 Para cada programador:
 \begin{itemize}
   	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
 \end{itemize}
 
 \noindent Para cada tarea:
@@ -467,15 +496,83 @@ Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y
 
 \section{Extensión 4}
 
+En esta última extensión, partiendo de la anterior, tenemos como objetivo minimizar, además del número de horas, el número de programadores. 
 \subsection{Dominio}
 \subsubsection{Funciones}
+En esta extensión tenemos que conocer el número de trabajadores que tienen alguna tarea asignada por tal de poder minimizar este número. Para tener esta informacion hemos creado una función.
+\begin{itemize}
+	\item \textbf{programadoresTotal}:Esta función nos servirá para contar el número total de programadores que tienen asignada alguna tares.  
+\end{itemize}
 \subsubsection{Predicados}
+Para esta extenison hemos añadido un nuevo predicado que nos permite conocer si ya hemos contabilizado al programador para el contador programadoresTotal.
+\begin{itemize}
+  \item \verb|(programadorContado ?x - programador)|
+  
+  El programador \texttt{x} ha sido contado para la función programadoresTotal.
+\end{itemize}
 \subsubsection{Acciones}
+Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{contar} y \textbf{nocontar}.
+\begin{itemize}
+	\item \textbf{contar}: Esta acción nos sirve para incrementar la función programadoresTotal cuando un programador tiene alguna tarea o revisión asignada. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item El programador \texttt{p} no ha sido contado.
+		\item Todas las tareas han sido revisadas.
+		\item El número de tareas del programador \texttt{p} és mayor a 0. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item El programador \texttt{p} ha sido contado.
+		\item Se ha incrementado en 1 el contador programadoresTotal en uno.
+	\end{itemize}
 
+	\item \textbf{nocontar}: Esta acción nos sirve para no contar a los programadores sin tareas. 
+	\textbf{Parámetros}
+	\begin{itemize}
+		\item ?p - programador
+	\end{itemize}
+	\textbf{Precondición}
+	\begin{itemize}
+		\item El programador \texttt{p} no ha sido contado.
+		\item Todas las tareas han sido revisadas.
+		\item El número de tareas del programador \texttt{p} és igual a 0. 
+	\end{itemize}
+	\textbf{Postcondición}
+	\begin{itemize}	
+		\item El programador \texttt{p} ha sido contado.
+	\end{itemize}
+	
+\end{itemize}
 \subsection{Problema}
 \subsubsection{Estado inicial}
-\subsubsection{Estado final}
+Para cada programador:
+\begin{itemize}
+  	\item Definimos la habilidad del programador (1, 2 o 3).
+  	\item Definimos la calidad del programador (1 o 2).
+\end{itemize}
 
+\noindent Para cada tarea:
+\begin{itemize}
+  	\item Definimos cuanto tiempo tarda en hacerse.
+  	\item Definimos la dificultad de la tarea (1, 2 o 3).
+\end{itemize}
+
+\noindent Además inicializamos los valores de \textit{tiempoTotal}, \textit{programadoresTotal} y el número de tareas de cada programador. 
+
+\subsubsection{Estado final}
+En este caso cómo todas las tareas deben estar inicializadas para poder contar el número de programadores con tareas el estado final se cumplirà cuando se haya contado a todos los programadores y cuando todos los programadores realizen menos de 2 tareas.
+En esta ocasion minimizaremos el tiempo total y el número de programadores.
+
+\begin{verbatim}
+(:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
+					(programadorContado ?p))))
+    
+(:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+\end{verbatim}
 \subsection{Juegos de prueba}
 
 

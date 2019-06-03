@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 PWD /home/adria/Downloads/Planificacion-IA/Documentacion
+=======
+PWD /home/rovi98/Documents/IA/Planificacion-IA/Documentacion
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
+<<<<<<< HEAD
 INPUT Documentacion.tex
 OUTPUT Documentacion.log
+=======
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.tex
+OUTPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.log
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
@@ -64,9 +73,15 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 INPUT /usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+<<<<<<< HEAD
 INPUT Documentacion.aux
 INPUT Documentacion.aux
 OUTPUT Documentacion.aux
+=======
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.aux
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.aux
+OUTPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.aux
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
@@ -79,6 +94,7 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+<<<<<<< HEAD
 INPUT Documentacion.out
 INPUT Documentacion.out
 INPUT Documentacion.out
@@ -87,6 +103,16 @@ OUTPUT Documentacion.pdf
 INPUT ./Documentacion.out
 INPUT ./Documentacion.out
 OUTPUT Documentacion.out
+=======
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+OUTPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.pdf
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+OUTPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
@@ -97,6 +123,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+<<<<<<< HEAD
 INPUT images/UPClogo.png
 INPUT ./images/UPClogo.png
 INPUT ./images/UPClogo.png
@@ -109,6 +136,20 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 OUTPUT Documentacion.toc
+=======
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/images/UPClogo.png
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/images/UPClogo.png
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/images/UPClogo.png
+INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.toc
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.toc
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+OUTPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.toc
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
@@ -116,9 +157,15 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+<<<<<<< HEAD
 INPUT Documentacion.aux
 INPUT ./Documentacion.out
 INPUT ./Documentacion.out
+=======
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.aux
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+INPUT /home/rovi98/Documents/IA/Planificacion-IA/Documentacion/Documentacion.out
+>>>>>>> b002f01f4707d850d1e15ca794de9e6ca7097745
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb

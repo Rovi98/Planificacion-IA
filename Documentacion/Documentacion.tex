@@ -322,7 +322,7 @@ En cuanto a lo que concierne a los predicados, utilizamos los mismos que en la e
 \subsubsection{Acciones}
 Además de las acciones utilizadas anteriormente hemos tenido que añadir \textbf{asignarDificil} y modificar \textbf{asignar} y \textbf{revisar} para añadir los conceptos de tiempo en nuestro sistema.
 \begin{itemize}
-	\item \textbf{asignar}: Esta acción nos sirve para asignar una tarea a un programador que tiene un valor de habilidad = dificultadTarea -1. 
+	\item \textbf{asignar}: Esta acción nos sirve para asignar una tarea a un programador que tiene un valor mayor o igual a la dificultadTarea. 
 	\textbf{Parámetros}
 	\begin{itemize}
 		\item ?p - programador
@@ -331,15 +331,15 @@ Además de las acciones utilizadas anteriormente hemos tenido que añadir \textb
 	\textbf{Precondición}
 	\begin{itemize}
 		\item La tarea t no está asignada
-		\item La habilidad del programador p es igual que la dificultad de la tarea p menos uno. 
+		\item La habilidad del programador p es igual o mayor a la dificultad de la tarea. 
 	\end{itemize}
 	\textbf{Postcondición}
 	\begin{itemize}	
 		\item La tarea t ha sido asignada al programador p.
-		\item Se ha incrementado el tiempo total el tiempo que tarda en realizarse la tarea con una penalización de 2 horas denido a su habilidad.
+		\item Se ha incrementado el tiempo total en  el tiempo que tarda en realizarse la tarea.
 	\end{itemize}
 
-	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad mayor o igual a la dificultad de la tarea. En este caso se incrementa el Tiempo total con el tiempo de la tarea sin penalización alguna.
+	\item \textbf{asignarDificil}: Esta acción es idéntica que la anterior pero con la diferencia de que esta sirve para asignar tareas a los programadores que tienen una habilidad igual a la dificultad de la tarea menos 1. En este caso se incrementa el tiempo total en el tiempo que tarda en realizarse la tarea con una penalización de 2 horas denido a su habilidad.
 
 	\item \textbf{revisar}: Esta acción nos sirve para asignar una tarea de revisión a un programador. 
 	\textbf{Parámetros}
@@ -388,38 +388,107 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 
 \subsection{Juegos de prueba}
 \subsubsection{Prueba que minimice según la habilidad del programador} 
-\underline{\textbf{Input}}\\
+\underline{\textbf{Input}}
+\\
 
 En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizar el tiempo con las asignaciones realizadas según la habilidad del programador. 
 \begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 1)
+
+	(=  (habilidadProgramador p1) 2)
+	(=  (calidadProgramador p1) 1)
+
+	(=  (habilidadProgramador p2) 5)
+	(=  (calidadProgramador p2) 1)
+
+	(=  (dificultadTarea t0)2)
+	(=  (tiempoTarea t0)6)
+
+	(=  (dificultadTarea t1)2)
+	(=  (tiempoTarea t1)2)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (:metric minimize (tiempoTotal))
+)
 
 \end{verbatim}
 
-\noindent \underline{\textbf{Output}}\\
+\noindent \underline{\textbf{Output}}
+\\
 
 \begin{verbatim}
-
+ff: found legal plan as follows
+step    0: ASIGNAR P2 T1
+        1: ASIGNAR P2 T0
+        2: REVISAR P1 P2 T1
+        3: REVISAR P1 P2 T0
+plan cost: 10.000000
 \end{verbatim}
-\noindent \underline{{\textbf{Justificación}}}\\
-En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la habilidad del programador. 
+\noindent \underline{{\textbf{Justificación}}}
+\\
+
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la habilidad del programador: Se han asignado las dos tareas al programador 5 porque es el que tiene más habilidad y eso significa menos tiempo de revisión.
 
 \subsubsection{Prueba que optimize según la calidad del programador} 
-\underline{\textbf{Input}}\\
+\underline{\textbf{Input}}
+\\
+
 En este caso introduciremos un juego de prueba que muestre como nuestro sistema es capaz de minimizarel tiempo con las asignaciones realizadas según la calidad del programador. 
 \medskip
 \begin{verbatim}
+(define (problem test-01) (:domain task) 
+	(:objects p0 p1 p2 - programador
+t0 t1 - tarea)
+	(:init
+	(=  (habilidadProgramador p0) 1)
+	(=  (calidadProgramador p0) 1)
+
+	(=  (habilidadProgramador p1) 1)
+	(=  (calidadProgramador p1) 2)
+
+	(=  (habilidadProgramador p2) 2)
+	(=  (calidadProgramador p2) 2)
+
+	(=  (dificultadTarea t0)1)
+	(=  (tiempoTarea t0)6)
+
+	(=  (dificultadTarea t1)1)
+	(=  (tiempoTarea t1)2)
+
+	(= (tiempoTotal) 0 )
+)
+(:goal (forall (?t - tarea) (tareaRevisada ?t)))
+ (:metric minimize (tiempoTotal))
+)
 \end{verbatim}
 
-\noindent \underline{\textbf{Output}}\\
+\noindent \underline{\textbf{Output}}
+\\
 
 \begin{verbatim}
+
+ff: found legal plan as follows
+step    0: ASIGNAR P0 T0
+        1: REVISAR P1 P0 T0
+        2: ASIGNAR P0 T1
+        3: REVISAR P1 P0 T1
+plan cost: 10.000000
 \end{verbatim}
 
 \medskip
 
 
-\noindent \underline{\textbf{Justificación}}\\
-En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la calidad del programador. 
+\noindent \underline{\textbf{Justificación}}
+\\
+
+En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que se minimizara el tiempoTotal. Además podemos observar que en este caso se ha minimizado según la calidad del programador: se le han asignado todas las tareas de realización al programador 0 ya que este tiene de calidad 1 y eso significa menos tiempo de revisión hacia sus otros compañeros. 
 
 \section{Extensión 3}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
@@ -513,7 +582,8 @@ plan cost: 14.000000
 En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
 
 \subsubsection{Prueba imposible de realizar}
-\noindent \underline{\textbf{Input}} \\
+\noindent \underline{\textbf{Input}} 
+\\
 
 En este caso hemos creado un juego de prueba que resulte imposible de realizar ya que cada persona tendría que realizar más de 2 tareas. 
 \medskip
@@ -559,12 +629,13 @@ t0 t1 t2 t3 t4 - tarea)
 \end{verbatim}
 
 \noindent \underline{\textbf{Output}}
+\\
 
 \begin{verbatim}
 Astar epsilon search space empty!
 Bailing out.
 \end{verbatim}
-\noindent \underline{\textbf{Justificación}}
+\noindent \underline{\textbf{Justificación}}\\
 
 Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
 \medskip

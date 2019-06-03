@@ -300,7 +300,7 @@ weighted A* search space empty! problem proven unsolvable.
 \end{verbatim}
 \noindent \underline{\textbf{Justificación}} \\
 
-Tal i cómo esperavamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
+Cómo esperavamos no hemos encontrado ninguna solución porque se asigna la tarea t3 al programador p2 y p1 no tiene suficiente habilidad para revisarla.
 \medskip
 
 \section{Extensión 2}
@@ -720,6 +720,136 @@ En esta ocasion minimizaremos el tiempo total y el número de programadores.
 (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
 \end{verbatim}
 \subsection{Juegos de prueba}
+\subsubsection{Prueba minimzar programador}
+\underline{\textbf{Input}}\\
+
+En este caso introduciremos un juego en que todos los programadores tienen la misma habilidad y calidad, y todas las tareas la misma dificultad. Queremos ver cómo no asigna ninguna tarea a uno de los programadores.
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 p3 p4 - programador
+			  t1 t2 t3 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 3)
+        (= (habilidadProgramador p2) 3)
+        (= (habilidadProgramador p3) 3)
+        (= (habilidadProgramador p4) 3)
+        
+        (= (calidadProgramador p1) 1)
+        (= (calidadProgramador p2) 1)
+        (= (calidadProgramador p3) 1)
+        (= (calidadProgramador p4) 1)
+        
+        (= (nTareasProgramador p1) 0)
+        (= (nTareasProgramador p2) 0)
+        (= (nTareasProgramador p3) 0)
+        (= (nTareasProgramador p4) 0)
+        
+        (= (dificultadTarea t1) 3)
+        (= (dificultadTarea t2) 3)
+        (= (dificultadTarea t3) 3)
+        
+        (= (tiempoTarea t1) 3)
+        (= (tiempoTarea t2) 3)
+        (= (tiempoTarea t3) 3)
+        
+        (= (tiempoTotal) 0)
+        (= (programadoresTotal) 0)
+    )
+
+    
+
+    (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
+											(programadorContado ?p))))
+    
+    (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+    )
+ \end{verbatim}
+ \medskip
+ 
+ \noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P1 T3
+        1: ASIGNAR P2 T2
+        2: ASIGNAR P3 T1
+        3: REVISAR P1 P3 T1
+        4: REVISAR P3 P2 T2
+        5: REVISAR P2 P1 T3
+        6: CONTAR P1
+        7: CONTAR P2
+        8: CONTAR P3
+        9: NOCONTAR P4
+plan cost: 15.000000
+\end{verbatim}
+\medskip
+
+\noindent \underline{\textbf{Justifación}}\\
+
+Como esperavamos el programa no ha asignado ninguna tarea al programador p4.
+
+\subsubsection{Prueba minimizar programadores con calidad 2}
+\noindent \underline{\textbf{Input}} \\
+
+Finalmente haremos una prueba con programadores con habilidad 3 y calidad 1 y programadores con habilidad 3 y calidad 2. Esperamos que todos los programadores del segundo grupo no sean asignados o esten asignados a revisiones.
+\medskip
+\begin{verbatim}
+(define (problem test-01) (:domain task)
+    (:objects p1 p2 p3 p4 - programador
+			  t1 t2 - tarea)
+    (:init
+        (= (habilidadProgramador p1) 3)
+        (= (habilidadProgramador p2) 3)
+        (= (habilidadProgramador p3) 3)
+        (= (habilidadProgramador p4) 3)
+        
+        (= (calidadProgramador p1) 2)
+        (= (calidadProgramador p2) 2)
+        (= (calidadProgramador p3) 1)
+        (= (calidadProgramador p4) 1)
+        
+        (= (nTareasProgramador p1) 0)
+        (= (nTareasProgramador p2) 0)
+        (= (nTareasProgramador p3) 0)
+        (= (nTareasProgramador p4) 0)
+        
+        (= (dificultadTarea t1) 3)
+        (= (dificultadTarea t2) 3)
+        
+        (= (tiempoTarea t1) 3)
+        (= (tiempoTarea t2) 3)
+        
+        (= (tiempoTotal) 0)
+        (= (programadoresTotal) 0)
+    )
+
+    
+
+    (:goal (forall (?p - programador) (and (<= (nTareasProgramador ?p) 2)
+											(programadorContado ?p))))
+    
+    (:metric minimize (+ (tiempoTotal) (programadoresTotal)))
+    )
+\end{verbatim}
+
+\noindent \underline{\textbf{Output}}
+\medskip
+\begin{verbatim}
+ff: found legal plan as follows
+step    0: ASIGNAR P4 T2
+        1: ASIGNAR P4 T1
+        2: REVISAR P3 P4 T2
+        3: REVISAR P3 P4 T1
+        4: CONTAR P4
+        5: CONTAR P3
+        6: NOCONTAR P2
+        7: NOCONTAR P1
+plan cost: 10.000000
+\end{verbatim}
+\noindent \underline{\textbf{Justificación}} \\
+
+Cómo esperavamos los programadores con calidad 2 no han sido asignados. Creando así la mayor minimización posible.
+\medskip
 
 \newpage
 \section{Conclusiones}

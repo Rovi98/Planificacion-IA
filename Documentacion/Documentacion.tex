@@ -286,8 +286,8 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 \end{verbatim}
 
 \subsection{Juegos de prueba}
-\subsubsection{} 
-{\Large \textbf{Input}}
+\subsubsection{Prueba que minimice según la habilidad del programador} 
+\underline{\textbf{Input}}
 \begin{verbatim}
 (define (problem test-01) (:domain task) 
 	(:objects p0 p1 p2 - programador
@@ -314,7 +314,8 @@ t0 t1 - tarea)
  (:metric minimize (tiempoTotal))
 )
 \end{verbatim}
-\noindent { \Large \textbf{Output}}
+
+\noindent \underline{\textbf{Output}}
 \begin{verbatim}
 ff: found legal plan as follows
 step    0: ASIGNARDIFICIL P1 T0
@@ -323,7 +324,13 @@ step    0: ASIGNARDIFICIL P1 T0
         3: REVISAR P2 P0 T1
 plan cost: 11.000000
 \end{verbatim}
-\noindent {\Large \textbf{Justificación}}
+\noindent \underline{{\textbf{Justificación}}}
+
+\subsubsection{Prueba que optimize según la calidad del programador} 
+\textbf{Input}
+\noindent \underline{\textbf{Output}}
+\noindent \underline{\textbf{Justificación}}
+
 
 \section{Extensión 3}
 En la siguiente extensión, partiendo de la anterior, tenemos como objetivo limitar el número de tareas que podemos asignar a una persona a 2. Por consiguiente, aumentaremos el número de personas trabajando en paralelo. 
@@ -362,8 +369,8 @@ Para el estado final, de la misma manera que en la anterior extensión, requerim
 (:metric minimize (tiempoTotal))
 \end{verbatim}
 \subsection{Juegos de prueba}
-\subsubsection{Juego de prueba estándard}
-{\Large \textbf{Input}}
+\subsubsection{Prueba estándard}
+\underline{\textbf{Input}}
 \medskip
 En este caso introduciremos un juego de prueba estándard sin ninguna complicación para comprovar que se realiza correctamente el objetivo de la extensión. 
 \begin{verbatim}
@@ -396,7 +403,7 @@ t0 t1 - tarea)
  (:metric minimize (tiempoTotal))
  )
  \end{verbatim}
- \noindent {\Large \textbf{Output}}
+ \noindent \underline{\textbf{Output}}
 \medskip
 \begin{verbatim}
 ff: found legal plan as follows
@@ -407,11 +414,11 @@ step    0: ASIGNAR P0 T1
 plan cost: 14.000000
 
 \end{verbatim}
-\noindent {\Large \textbf{Justifación}}
+\noindent \underline{\textbf{Justifación}}
 En este caso podemos ver como se ha cumplido el objetivo de la extensión que era que cada programador tuviera como máximo 2 tareas. 
 
-\subsubsection{Juego de prueba imposible de realizar}
-\noindent {\Large \textbf{Input}}
+\subsubsection{Prueba imposible de realizar}
+\noindent \underline{\textbf{Input}}
 En este caso hemos creado un juego de prueba que resulte imposible de realizar ya que cada persona tendría que realizar más de 2 tareas. 
 \medskip
 \begin{verbatim}
@@ -455,13 +462,13 @@ t0 t1 t2 t3 t4 - tarea)
 
 \end{verbatim}
 
-\noindent {\Large \textbf{Output}}
+\noindent \underline{\textbf{Output}}
 \medskip
 \begin{verbatim}
 Astar epsilon search space empty!
 Bailing out.
 \end{verbatim}
-\noindent {\Large \textbf{Justificación}}
+\noindent \underline{\textbf{Justificación}}
 Tal y como esperábamos, al tener tantas tareas (8 si contamos su realización y su revisión pertinente) y tan pocos programadores (3) era imposible obtener una solución. 
 \medskip
 
